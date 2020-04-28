@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="week2TeamActivity.css">
+</head>
+
+<body>
+    <nav>
+        <ul id="navigation">
+            <li>
+                <a href="#" id="menu">&equiv; Menu</a>
+            </li>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../week1">Week 1</a></li>
+            <li><a href="../../week2">Week 2</a></li>
+            <li><a href="../../week3">Week 3</a></li>
+            <li><a href="../../week4">Week 4</a></li>
+            <li><a href="../../week5">Week 5</a></li>
+            <li><a href="../../week6">Week 6</a></li>
+            <li><a href="../../week7">Week 7</a></li>
+            <li><a href="../../week8">Week 8</a></li>
+            <li><a href="../../week9">Week 9</a></li>
+            <li><a href="../../eek10">Week 10</a></li>
+            <li><a href="../../week11">Week 11</a></li>
+            <li><a href="../../week12">Week 12</a></li>
+            <li><a href="../../week13">Week 13</a></li>
+            <li><a href="../../week14">Week 14</a></li>
+        </ul>
+    </nav>
+
+    <header><h3>Team Activity Week 2</h3></header>
+
+    <main>
+        <input id="input" type="number" placeholder="Put number here">
+        <input type="number" id="numberForCalculation" placeholder="adding number">
+        <div id="calculatorButtons">
+            <button onclick="addNumbers()">+</button>
+            <button onclick="subtractNumber()">-</button>
+            <button onclick="multiplyNumber()">x</button>
+            <button onclick="divideNumber(getValues())">/</button>
+        </div>
+
+        <div id="result"></div>
+    </main>
+    <footer>
+        &copy; 2020 | Portfolio | Jordan Burdett
+    </footer>
+
+
+    <script>
+        
+        function addNumbers() {
+            var values = getValues()
+
+            var result = values[0] + values[1]
+            
+            displayResult(result)
+        }
+
+        const subtractNumber = function() {
+            var values = getValues()
+
+            var result = values[0] - values[1]
+            
+            displayResult(result)
+        }
+
+        multiplyNumber = () => {
+            var values = getValues()
+
+            var result = values[0] * values[1]
+            
+            displayResult(result)
+        }
+
+        divideNumber = (values) => {
+
+            var result = values[0] / values[1]
+            
+            displayResult(result)
+        }
+
+        function getValues() {
+            var value1 = parseInt(document.getElementById('input').value)
+            var value2 = parseInt(document.getElementById('numberForCalculation').value)
+
+            if (isNaN(value1)) {
+                value1 = 0
+            }
+            if (isNaN(value2)) {
+                value2 = 0
+            }
+            return [value1, value2]
+        }
+
+        function displayResult(result) {
+            document.getElementById('result').innerHTML = result
+        }
+        
+    </script>
+    <script src="../../scripts/main.js"></script>
+</body>
+
+</html>
+<!-- NOPE!
+Ill send you a link to the github. -->

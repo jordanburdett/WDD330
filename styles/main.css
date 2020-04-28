@@ -44,6 +44,16 @@ header h1,h3 {
     margin-top: 5px;
 }
 
+main input,button {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: lightblue;
+    border: none;
+}
+
+
+
 main p,h5{
     padding-left: 13px;
     padding-right: 13px;
@@ -78,3 +88,27 @@ footer {
 
 
 /* ID Selectors */
+#calculatorButtons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#calculatorButtons button {
+    width: 60px;
+    height: 60px;
+    background-color: darkmagenta;
+    color: white;
+    font-size: 35px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 30%;
+}
+
+#result {
+    padding: 10px;
+    margin: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+}
