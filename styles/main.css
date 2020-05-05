@@ -42,6 +42,7 @@ header h1,h3 {
     padding-left: 13px;
     margin: 0;
     margin-top: 5px;
+    text-decoration: none;
 }
 
 main input,button {
@@ -51,8 +52,6 @@ main input,button {
     background-color: lightblue;
     border: none;
 }
-
-
 
 main p,h5{
     padding-left: 13px;
