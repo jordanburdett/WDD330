@@ -106,7 +106,6 @@ const longestLife = inventors.sort((a,b) => {
 })
 
 console.log("Question 5.")
-
 console.log(longestLife)
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
