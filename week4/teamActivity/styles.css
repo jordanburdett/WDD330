@@ -1,0 +1,30 @@
+main {
+    text-align: center;
+}
+
+.board {
+    margin: auto;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 312px;
+    height: 312px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item {
+    background-color: rgb(4, 41, 122);
+    color: white;
+    font-size: 80px;
+    text-align: center;
+    height: 100px;
+    width: 100px; 
+}
+
+.reset {
+    width: 200px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
