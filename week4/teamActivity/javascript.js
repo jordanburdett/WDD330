@@ -6,6 +6,7 @@ let numTurns = 0
 
 for (i = 0; i < cells.length; i++) {
     cells[i].addEventListener("touchend", buttonClicked)
+    cells[i].addEventListener("click", buttonClicked)
 }
 
 function buttonClicked() {
@@ -34,6 +35,7 @@ function toggleTurn() {
 }
 
 document.getElementById("reset").addEventListener("touchend", reset)
+document.getElementById("reset").addEventListener("click", reset)
 
 function reset() {
     for (i = 0; i < cells.length; i++) {
