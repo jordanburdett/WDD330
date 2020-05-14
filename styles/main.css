@@ -30,11 +30,12 @@ nav ul li:first-child {
 }
 
 nav ul li a {
+    
     text-decoration: none;
     display: block;
-    border: 1px solid gray;
     padding: 15px;
     color: white;
+    
     
 }
 
@@ -77,11 +78,16 @@ footer {
     color: gray
 }
 
+main li {
+    padding-right: 5%;
+}
+
 
 
 /* Class Selectors */
 .show li {
     display: block;
+    border: 1px solid gray;
 }
 
 

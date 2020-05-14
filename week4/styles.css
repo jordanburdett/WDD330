@@ -1,0 +1,19 @@
+main ul li{
+    opacity: 0;
+    
+}
+
+.show {
+    opacity: 100%;
+    transition: ease 1s;
+}
+
+h3 a {
+    text-decoration:none;
+    color: white;
+}
+
+h3 {
+    text-align:center;
+    text-decoration:underline;
+}

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -33,15 +34,39 @@
     </nav>
 
     <h3><a href="teamActivity">Team Activity</a></h3>
-    
-    <header></header>
-    <main></main>
+
+    <header>
+        <button>Show Notes</button>
+    </header>
+    <main>
+        <p>
+        <ul>
+            <li><b>Models:</b> are objects that implement the functionality for creating, reading, updating and deleting
+                (known as CRUD tasks) specific pieces of information about the application, as well as any other
+                associated logic and behavior. In a to-do list application, for example, there would be a task model
+                providing methods to access all the information about the tasks such as names, due dates and completed
+                tasks. This data will often be stored in a database or some other container.</li>
+            <br>
+            <li><b>Views:</b> provide a visual representation of the model showing all the relevant information. In a web
+                application, this would be the HTML displayed on a web page. Views also provide a way for users to
+                interact with an application, usually via forms. In a to-do list application, the views would display
+                the tasks as an HTML list with checkboxes that a user could tick to say a task had been completed.</li>
+            <br>
+            <li><b>Controllers:</b> link models and views together by communicating between them. They respond to events,
+                which are usually inputs from a user (entering some data into a form, for example), process the
+                information, then update the model and view accordingly. In a to-do list application, the controller
+                functions would respond to the event of a user clicking on a check box and then inform the model that a
+                task had been completed. The model would then update the information about that task.</li>
+        </ul>
+        </p>
+    </main>
     <footer>
         &copy; 2020 | Portfolio | Jordan Burdett
     </footer>
 
 
     <script src="../scripts/main.js"></script>
+    <script src="javascript.js"></script>
 </body>
 
 </html>
