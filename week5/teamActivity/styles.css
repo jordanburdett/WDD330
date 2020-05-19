@@ -1,0 +1,57 @@
+body {
+    background-color: rgb(176, 167, 130);
+}
+
+header h1 {
+    text-align: center;
+    color: white;
+    margin-top: 0px;
+    padding: 20px;
+    background-color: rgb(22, 71, 23);
+}
+
+/* these things may need name changes later */
+.hike {
+    display: grid;
+    grid-template-areas: 
+      'name name'
+      'picture contentArea'
+      'details details';
+    grid-gap: 20px;
+    background-color: rgb(176, 167, 130);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.hikeName {
+    text-align: center;
+    grid-area: name;
+    background-color: rgb(79, 128, 78);
+    padding: 10px;
+}
+
+.hikeImage {
+    grid-area: picture;
+    width: 100%;
+    height: auto;
+}
+
+.hikeContent {
+    grid-area: contentArea;
+    color: black;
+}
+
+h2 {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.hikeMoreInfo {
+    grid-area: details;
+    width: 90%;
+    border: 1px dashed rgb(79, 128, 78);
+    padding: 10px;
+    margin: auto;
+    color: black;
+}
+ 
