@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <title>To-Do</title>
 </head>
+
 <body>
-    <div id="To-Do"></div>
+
+    <div class="gridContainer">
+        <h1>To-Do</h1>
+        <div class="gridContainer" id="filters">
+            <button class="filterButton" id="showCompleted">Show Completed</button>
+            <button class="filterButton" id="showAll">Show All</button>
+            <button class="filterButton" id="showIncomplete">Show Incompleted</button>
+
+        </div>
+
+        <div class="gridContainer" id="To-Do"></div>
+    </div>
+
+    <div class="categoryInput" id="categoryInput"></div>
+
+    <div class="addTaskWindow hide" id="addTaskContainer">
+        <form class="gridContainer">
+            <div class="formItem">
+                <label for="taskName">Task Name:</label><br>
+                <input type="text" name="taskName" id="taskName">
+            </div>
+            <div class="formItem">
+                <label for="categorySelector">Select Category</label>
+                <select id="categorySelector">
+                    <option value="Other">Other</option>
+                    <option value="asdf">asdf</option>
+                </select>
+            </div>
+            <div class="formItem">
+                <label for="categoryName">Category</label><br>
+                <input type="text" name="categoryName" id="categoryName" value="Other">
+            </div>
+        </form>
+        <button id="saveNewTask" class="addNewTask">Add</button>
+    </div>
 </body>
 
 <script type="module" src="./scripts/HelperMethods.js"></script>
@@ -14,4 +52,5 @@
 <script type="module" src="scripts/Category.js"></script>
 <script type="module" src="scripts/Task.js"></script>
 <script type="module" src="scripts/javascript.js"></script>
+
 </html>

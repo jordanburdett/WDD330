@@ -1,0 +1,82 @@
+body {
+    color: white;
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+}
+
+label {
+    padding-right: 15px;
+}
+
+.gridContainer {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.category {
+    width: 100%;
+}
+
+.task {
+    width: 90%;
+    height: 25px;
+    border: solid white 1px;
+    padding: 10px;
+    margin: 5px;
+    margin-left: 5%; 
+    margin-right: 5%;
+
+    display:flex;
+}
+
+.formItem {
+    padding: 10px;
+}
+
+.taskName {
+    width: 90%;
+}
+
+.checkBox {
+    width: 10%;
+}
+
+.addNewTask {
+    width: 60%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(71, 118, 245);
+    color: white;
+    text-align: center;
+    margin: 15px;
+    margin-left: 20%;
+    margin-right: 20%; 
+}
+
+.hide {
+    display: none;
+}
+
+.filterButton {
+    padding: 5px;
+    width: 33.3333%;
+    background-color: lightskyblue;
+    border: none;
+    height: 40px;
+}
+
+#filters {
+    padding-top: 10px;
+    width:100%;
+}
+

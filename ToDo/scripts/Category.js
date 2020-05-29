@@ -11,34 +11,28 @@ export class Category {
         this.name = name  // name of Category
         this.tasks = task  // array of tasks
         this.id = id      // just incase I need it
-
-
-        let helperMethods = new HelperMethods()
-        let HTML = helperMethods.createCategoryHTML(name, id)
-        document.getElementById("To-Do").appendChild(HTML)
     }
 
     /****
      * Adds a task to the current category
      */
-    addTask(taskName) {
+    addTask(taskName, completed) {
 
         // Create a new task
-        let newTask = new Task(false, taskName, `${this.name}${this.tasks.length}`)
+        let newTask = new Task(completed, taskName, `${this.name}${this.tasks.length}`)
 
         // add the task to self.tasks
         this.tasks.push(newTask)
 
-        console.log(this)
-        // Get the category
-        let category = document.getElementById(this.id)
+        // // Get the category
+        // let category = document.getElementById(this.id)
         
-        // Create new HTML Element
-        const helperMethods = new HelperMethods()
-        let element = helperMethods.createHTMLTask(taskName, `${this.name}${this.tasks.length - 1}`, false)
+        // // Create new HTML Element
+        // const helperMethods = new HelperMethods()
+        // let element = helperMethods.createHTMLTask(taskName, `${this.name}${this.tasks.length - 1}`, false)
 
-        // Add element to the screen
-        category.appendChild(element)
+        // // Add element to the screen
+        // category.appendChild(element)
     }
 
     /******
@@ -56,7 +50,5 @@ export class Category {
         }
         console.log("After")
         console.table(this.tasks)
-
-        document.getElementById(taskid).remove()
     }
 }

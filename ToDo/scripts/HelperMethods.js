@@ -3,7 +3,20 @@ export class HelperMethods {
         let newTask = document.createElement("div")
         newTask.classList.add("task")
         newTask.id = id
-        newTask.textContent = taskName
+        
+
+        let name = document.createElement("div")
+        name.classList.add("taskName")
+        name.textContent = taskName
+        newTask.appendChild(name)
+
+        let checkBox = document.createElement("input")
+        checkBox.type = "checkbox"
+        checkBox.classList.add("checkBox")
+        if (completed) {
+            checkBox.checked = true
+        }
+        newTask.appendChild(checkBox)
         
         return newTask
     }
