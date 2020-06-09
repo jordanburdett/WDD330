@@ -1,0 +1,107 @@
+header h1 {
+    text-align: center;
+    font-family: "Metal Mania";
+    text-shadow: 2px 2px 8px #FFF200;
+}
+
+@keyframes star {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) translateY(-0.75em);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    89% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes wars {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) translateY(-0.75em);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    89% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.star {
+    animation: star 8s ease-out;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.wars {
+    animation: wars 8s ease-out;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.starwars {
+    perspective: 800px;
+    transform-style: preserve3d;
+    background-image: url("https://cssanimation.rocks/demo/starwars/images/bg.jpg")
+}
+
+.person {
+    margin: 10px;
+    background-image: linear-gradient(black, rgb(40,40,40), black);
+    min-height: 30px;
+}
+
+.personName {
+    font-size: 18px;
+}
+
+.navButton {
+    font-size: 18px;
+    width: 50%;
+    background-color: #e6db1c;
+}
+
+.details {
+    border: 2px solid white;
+    padding: 10px;
+    padding-left: 30px;
+    border-color: #e6db1c;
+}
+
+#navButtons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    padding-bottom: 10px;
+    bottom: 0;
+}
+
+#people {
+    padding: 10px;
+    margin-bottom: 45px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: "Lato";
+    background-image: url("https://cssanimation.rocks/demo/starwars/images/bg.jpg")
+}
+
+main {
+    flex-grow: 1;
+    position: relative;
+}
