@@ -2,7 +2,7 @@ var next = null
 var previous = null
 
 window.onload = function () {
-    makeRequest("http://swapi.dev/api/people/").then(data => {
+    makeRequest("https://swapi.dev/api/people/").then(data => {
         console.log(data)
 
         displayPersons(data)
