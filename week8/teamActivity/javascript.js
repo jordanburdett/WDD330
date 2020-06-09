@@ -35,9 +35,19 @@ document.getElementById("nextButton").addEventListener("click", () => {
 
 
 function displayPersons(people) {
-        let display = document.querySelector("#people")
-        next = people.next
-        previous = people.previous
+    let display = document.querySelector("#people")
+
+    if (people.next != null) {
+        let url = new URL(people.next)
+        url.protocol = "https:"
+        next = url.toString()
+    }
+
+    if (people.previous != null) {
+        let purl = new URL(people.previous)
+        purl.protocol = "https:"
+        previous = purl.toString()
+    }
 
         people.results.forEach(person => {
 
@@ -54,7 +64,7 @@ function displayPersons(people) {
 
 
 
-async function showMoreDetails(person) {
+    async function showMoreDetails(person) {
         let element = document.getElementById(person.id)
         console.log(element.children.length)
         if (element.children.length > 1) {
@@ -64,7 +74,12 @@ async function showMoreDetails(person) {
             return
         }
 
-        makeRequest(person.id).then(details => {
+
+        let url = new URL(person.id)
+
+        url.protocol = 'https:'
+
+        makeRequest(url.toString()).then(details => {
             console.log(details)
             element.innerHTML += `<div id='details${person.id}' class='details'> 
             <div>height = ${details.height}</div>
@@ -88,7 +103,7 @@ async function showMoreDetails(person) {
 
 
 
-async function makeRequest(url) {
+    async function makeRequest(url) {
         let response = await fetch(url)
         let data = response.json()
 
