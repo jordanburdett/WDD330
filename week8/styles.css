@@ -1,0 +1,66 @@
+/* main div h1, h3 {
+    padding: 15px;
+} */
+
+.notes {
+    padding: 15px;
+    transition: transform 2s;
+}
+
+.moveHeaders:hover {
+    transform: translate(500px);
+}
+
+#testZone {
+    border: solid gray 1px;
+    height: 200px;
+    width: 80%;
+    display: flex;
+    padding: 1%;
+    margin: 2%;
+}
+
+.red, .blue, .green, .purple {
+    height: 20%;
+    width: 20%;
+    border: solid gray 1px;
+    transition: transform 2s;
+}
+
+.red {
+    background-color: red;
+}
+
+.red:hover {
+    transform-origin: right;
+    transform: translate(400px, 200px) rotate(180deg);
+}
+
+.blue {
+    background-color: blue;
+}
+
+.blue:hover {
+    transform: scale(1.5, 0.25) skew(15deg);
+}
+
+.green {
+    background-color: green;
+}
+
+.green:hover {
+    transform: translateY(400px) rotate(360deg);
+}
+
+.purple {
+    background-color: purple;
+}
+
+.purple:hover {
+    transform: scale(3, 3) rotate(1000deg);
+}
+
+.myCanvas {
+    border: dotted 1px white;
+    margin: 10px;
+}

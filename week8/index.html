@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Metal+Mania">
 </head>
 
@@ -35,13 +36,41 @@
     <header>
         <h3><a href="teamActivity">Team Activity</a></h3>
     </header>
-    <main></main>
+    <main>
+        <div id="notes" class="notes">
+            <h1>Notes:</h1>
+        </div>
+
+        <div id="transitionNotes" class="notes moveHeaders">
+            <h3>Transitions:</h3>
+            <p>
+                My notes for this week are an example of using multiple transformations!
+            </p>
+        </div>
+        
+        <div id="testZone">
+            <div class="red"></div>
+            <div class="blue"></div>
+            <div class="green"></div>
+            <div class="purple"></div>
+        </div>
+
+        <div id="canvasZone">
+            <canvas id="myCanvas" class="myCanvas">
+                Sorry! Your browser doesn't support Canvas.
+            </canvas>
+        </div>
+
+        <h3>Questions:</h3>
+        <p>How did you do the page animations going from one screen to another with the pokiAPI demo you showed in class?</p>
+    </main>
     <footer>
         &copy; 2020 | Portfolio | Jordan Burdett
     </footer>
 
 
     <script src="../scripts/main.js"></script>
+    <script src="javascript.js"></script>
 </body>
 
 </html>
