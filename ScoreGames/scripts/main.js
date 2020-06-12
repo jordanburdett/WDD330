@@ -74,7 +74,7 @@ function update() {
     let updates = {
         name: name
     }
-    database.ref("games/").update(updates)
+    database.ref("games/-M9dN_bbestYpAsWl7e7").update(updates)
 
     nameField.value = ""
     return
