@@ -1,0 +1,121 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Game Score Header */
+.pageHeader {
+    font-family: 'Lexend Tera', serif;
+    font-size: 28px;
+    text-align: center;
+    padding: 30px;
+}
+
+/* Contains elements inside each game ******* Start of section ****************/
+
+/* The main Game Container */
+.gameContainer {
+    margin: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 89%;
+    max-width: 450px;
+    height: 60px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Team Container */
+.teamContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    padding-left: 2%;
+    align-items: center;
+}
+
+.team {
+    width: 45%;
+    font-size: 12px;
+    padding: 2px;
+    font-family: 'Open Sans';
+}
+/* End of Team Container */
+
+/* The Name and Date Container */
+.nameDateContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 38%;
+    align-items: center;
+}
+
+.gameName {
+    width: 100%;
+    font-family: 'Open Sans';
+}
+
+.gameDate {
+    width: 100%;
+    font-family: 'Open Sans';
+    font-size: 11px;
+}
+/* end of Name and Date Container */
+
+/* End of section *****************************************************/
+
+
+/* Add game button */
+#addGameButton {
+    position: fixed;
+    bottom: 4%;
+    right: 4%;
+    height: 50px;
+    width: 50px;
+    background-color: #57c1ff;
+    color:black;
+    padding: 10px;
+    border-radius: 25px;
+    text-align: center;
+    align-items: center;
+    border: 2px solid #7cbfe6;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* myGames label and Settings container*/
+.myGamesAndsettContainer {
+    display: flex;
+    width: 100%;
+}
+
+/* My Games Header */
+.myGames {
+    font-family: 'Lexend Tera', serif;
+    font-size: 18px;
+    padding: 5px;
+    margin-top: 20px;
+    width:65%;
+}
+
+/* Edit Games button container*/
+.buttonContainer {
+    width: 35%;
+    display: flex;
+    margin-top: 20px;
+    font-family: 'Lexend Tera', serif;
+    font-size: 11px;
+    align-items: center;
+}
+
+/* edit Button */
+.editButton {
+    text-align: center;
+    padding: 10px;
+    background-color: #57c1ff;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+

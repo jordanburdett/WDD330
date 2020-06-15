@@ -78,7 +78,7 @@ function loadGames() {
     // get a list of games from the user profile if no games return
     database.ref(`Users/${userInfo.uid}/games`).once('value').then(async (snapshot) => {
         if (snapshot) {
-            
+
 
             let games = []
             let keys = []
@@ -91,8 +91,8 @@ function loadGames() {
                 let game = await getGameFromFirebase(keys[key])
                 games.push(game)
             }
-            
-            
+
+
             //Display all the games
             console.table(games)
 
@@ -130,6 +130,18 @@ function displayGames(games) {
     games.forEach(game => {
         displayGame(game)
     })
+
+    games.forEach(game => {
+        displayGame(game)
+    })
+
+    games.forEach(game => {
+        displayGame(game)
+    })
+
+    games.forEach(game => {
+        displayGame(game)
+    })
 }
 
 /********************
@@ -137,50 +149,105 @@ function displayGames(games) {
  */
 function displayGame(game) {
     let display = document.querySelector("#game")
+    let gameDiv = document.createElement("div")
+    gameDiv.id = game.id
+    gameDiv.classList.add("gameContainer")
+
+    /*************************
+     * What happens when a game is clicked??? This happens!:)
+     */
+    gameDiv.addEventListener("click", () => {
+
+    })
+
+    let date = new Date(game.date)
+
+    let hours = date.getHours()
+    let timeString = ""
+
+    // Change my time stamp to understandable numbers.
+    if (hours >= 12) {
+        // PM
+
+        // check for 12
+        if (hours == 12) {
+            timeString += `${hours}:`
+        }
+        else {
+            hours = hours - 12
+            timeString += `${hours}:`
+        }
+        
+        timeString += `${date.getMinutes()}.${date.getSeconds()} PM`
+
+    }
+    else {
+        // AM
+
+        timeString += `${date.getHours()}:${date.getMinutes()}.${date.getSeconds()} AM`
+    }
 
 
-    display.innerHTML += `
-         <h6>${game.name}</h6>
-         <p>${game.date}</p>
-         <p>${game.id}</p>
-      `
+    console.log(date)
+    gameDiv.innerHTML += `<div class='nameDateContainer'>
+         <div class='gameName'>${game.name}</div>
+         <div class='gameDate'>${timeString}</div>
+         </div>`
+
+    let teamContainer = document.createElement("div")
+    teamContainer.classList.add("teamContainer")
 
     for (index in game.teams) {
-        console.log("in for loop")
-        let team = document.createElement("div")
-        team.id = game.teams[index]
+        if (index < 4) {
+            let team = document.createElement("div")
+            team.id = game.teams[index]
+            team.classList.add("team")
 
-        team.innerHTML = `
-        <div class='teamHeader'>
-        ${game.teams[index]}
-        </div>
-        <div class='teamScore'>
-        ${game.scores[index]}
-        </div>
+            team.innerHTML = `
+            ${game.teams[index]}: ${game.scores[index]}
         `
+            team.classList.add("team")
 
-        team.class = "team"
-
-        display.appendChild(team)
+            teamContainer.appendChild(team)
+        }
     }
+
+    gameDiv.appendChild(teamContainer)
+    display.appendChild(gameDiv)
 }
+
+/**************************
+ * Event listener for edit button
+ */
+document.getElementById("editButton").addEventListener("click", () => {
+    let games = document.querySelectorAll(".gameContainer")
+
+    console.table(games)
+})
+
+/**************************
+ * Event listener for Add New Game
+ */
+document.getElementById("addGameButton").addEventListener("click", () => {
+
+})
 
 /**********
  * This will attach a event listener to a button to test database inserts
  */
-document.querySelector("main button").addEventListener("click", () => {
-    var newPostKey = firebase.database().ref().child('games').push().key;
+// document.querySelector("main button").addEventListener("click", () => {
+//     var newPostKey = firebase.database().ref().child('games').push().key;
 
-    console.log(newPostKey)
-    database.ref('games/' + newPostKey).set({
-        id: newPostKey,
-        name: "Jordan's game",
-        teams: ["Team1", "Team2"],
-        scores: [500, 200],
-        date: Date.now(),
-        history: [[0, 200], [1, 500]]
-    })
-})
+//     console.log(newPostKey)
+//     database.ref('games/' + newPostKey).set({
+//         id: newPostKey,
+//         name: "Jordan's game",
+//         teams: ["Team1", "Team2"],
+//         scores: [500, 200],
+//         date: Date.now(),
+//         history: [[0, 200], [1, 500]]
+//     })
+// })
 
 // EXAMPLE OF HOW TO UPDATE DATA IN FIREBASE
 // function update() {
@@ -206,25 +273,3 @@ document.querySelector("main button").addEventListener("click", () => {
 
 //     displayGame(snapshot.val())
 // })
-
-test()
-
-function test() {
-    let display = document.querySelector("#tester")
-
-    database.ref("TestRealTime/").on("value", snapshot => {
-        console.log(snapshot.val())
-        display.textContent = ""
-        display.textContent = snapshot.val().someValue
-    })
-}
-
-function edit() {
-    let text = document.getElementById("testing").value
-
-    let updates = {
-        someValue: text
-    }
-
-    database.ref("TestRealTime/").update(updates)
-}

@@ -6,23 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameScore</title>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Tera">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
     <link rel="stylesheet" href="styles.css">
+
 
 </head>
 
 <body>
     <header>
-        <h1>Score Games</h1>
+        <div class="pageHeader">Score Games</div>
     </header>
     <main>
-       <button>Do Stuff</button>
-       <div id="game"></div>
+        <div class="myGamesAndsettContainer">
+            <div class="myGames">My Games:</div>
 
-       <br><br><br><br>
-       <label>testing</label>
-       <input type="text" id="testing">
-       <button onclick="edit()">Edit</button>
-       <p id="tester"></p>
+            <div class="buttonContainer">
+                <div class="editButton" id="editButton">
+                    Delete Games
+                </div>
+            </div>
+        </div>
+
+        <div id="game"></div>
+        
+        <div id="addGameButton"><i class="fas fa-plus fa-3x"></i></div>
     </main>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -31,7 +39,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-
+    <script src="https://kit.fontawesome.com/5990b2791e.js" crossorigin="anonymous"></script>
     <script src="../scripts/home.js"></script>
 </body>
 
