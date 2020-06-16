@@ -1,3 +1,4 @@
+
 var firebaseConfig = {
     apiKey: "AIzaSyB2aJwBVVsCSVzX_MnSHAbO5gXgn59CeXs",
     authDomain: "scoregames-c0233.firebaseapp.com",
@@ -130,18 +131,6 @@ function displayGames(games) {
     games.forEach(game => {
         displayGame(game)
     })
-
-    games.forEach(game => {
-        displayGame(game)
-    })
-
-    games.forEach(game => {
-        displayGame(game)
-    })
-
-    games.forEach(game => {
-        displayGame(game)
-    })
 }
 
 /********************
@@ -177,7 +166,7 @@ function displayGame(game) {
             hours = hours - 12
             timeString += `${hours}:`
         }
-        
+
         timeString += `${date.getMinutes()}.${date.getSeconds()} PM`
 
     }
@@ -220,16 +209,151 @@ function displayGame(game) {
  * Event listener for edit button
  */
 document.getElementById("editButton").addEventListener("click", () => {
+    // get the elements
     let games = document.querySelectorAll(".gameContainer")
 
-    console.table(games)
+    // Check if we have already added trash cans
+    if (document.getElementsByClassName("trashContainer").length) {
+        // remove the trashCan
+        games.forEach(game => {
+            game.removeChild(game.lastChild)
+        })
+
+        // display the add new game again.
+        document.getElementById("addGameButton").hidden = false;
+    }
+    else {
+
+        document.getElementById("addGameButton").hidden = true;
+        games.forEach(game => {
+
+            let trashCan = document.createElement("div")
+            trashCan.classList.add("trashContainer")
+            trashCan.id = game.id
+            trashCan.innerHTML = '<i class="fas fa-trash"></i>'
+
+            // What happens when the delete button is clicked.
+            trashCan.addEventListener("click", () => {
+
+                let gameId = game.id
+                let userInfo = getUserInfo()
+
+                let updates = {}
+                updates[gameId] = null
+
+                // delete from database
+                database.ref(`Users/${userInfo.uid}/games`).update(updates)
+                game.remove()
+            })
+
+            game.appendChild(trashCan)
+
+
+
+        })
+    }
 })
 
 /**************************
  * Event listener for Add New Game
  */
 document.getElementById("addGameButton").addEventListener("click", () => {
+    // Elements I'll need
+    let pageHeader = document.querySelector(".myGames")
+    let editButton = document.getElementById("editButton")
+    let addGameButton = document.getElementById("addGameButton")
+    let gamesContainer = document.getElementById("game")
+    let form = document.getElementById("newGameForm")
 
+    // change My Games to New Game:
+    pageHeader.textContent = "New Game:"
+
+    // Hide DeleteGames button
+    editButton.hidden = true
+
+    // Hide Add new Button
+    addGameButton.hidden = true
+
+    // HIde Games
+    gamesContainer.hidden = true
+
+    // show form for creating new Game
+    form.classList.toggle("newGame")
+    form.classList.toggle("hidden")
+})
+
+
+/**************************
+ * Event listener for adding a new team
+ */
+document.getElementById("addTeamButton").addEventListener("click", () => {
+    let inputField = document.getElementById("newTeamInput")
+    let teamDisplay = document.getElementById("newTeamDisplay")
+
+
+    let team = document.createElement("div")
+    team.className = "teamNameDelContainer"
+    team.innerHTML += `
+        <div class='teamDisplayForm'>${inputField.value}</div>
+    `
+
+    let trashCan = document.createElement("div")
+    trashCan.classList.add("teamTrashContainer")
+    trashCan.id = team.id
+    trashCan.innerHTML = '<i class="fas fa-trash"></i>'
+
+    // What happens when the delete button is clicked.
+    trashCan.addEventListener("click", () => {
+        team.remove()
+    })
+
+    team.appendChild(trashCan)
+
+    inputField.value = ""
+
+    teamDisplay.appendChild(team)
+})
+
+/*****************************
+ * Event listener for adding the new game
+ */
+document.getElementById("addNewGameFormButton").addEventListener("click", () => {
+    let teamsHTML = document.querySelectorAll(".teamDisplayForm")
+    let gameName = document.getElementById("gameNameInput").value
+    let date = Date.now()
+    let userInfo = getUserInfo()
+
+    teams = []
+    scores = []
+    teamsHTML.forEach(team => {
+        teams.push(team.textContent)
+        scores.push(0)
+    })
+
+    console.log(teams)
+
+    // add To Database
+    let newPostKey = firebase.database().ref().child('games').push().key
+    database.ref('games/' + newPostKey).set({
+        id: newPostKey,
+        name: gameName,
+        teams: teams,
+        date: date,
+        history: [],
+        scores: scores
+    })
+
+    let addGame = {}
+    addGame[newPostKey] = true
+    database.ref(`Users/${userInfo.uid}/games`).update(addGame)
+
+    /********************
+     * *****************
+     * *****************
+     * NEXT WE NEED TO CREATE A FUNCTION TO DISPLAY THE CURRENT GAME. 
+     * THAT FUNCTION NEEDS TO BE CALLED RIGHT HERE.
+     *  PASSING IN THE NEW ID THAT WAS JUST CREATED ON FIREBASE
+     */
 })
 
 /**********

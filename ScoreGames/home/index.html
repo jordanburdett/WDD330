@@ -29,7 +29,33 @@
         </div>
 
         <div id="game"></div>
-        
+
+        <div id="newGameForm" class="hidden">
+
+            <!-- Name for new name container -->
+            <div class="newGameNameContainer">
+                <label for="gameName">Game Name:</label>
+                <input type="text" name="gameName" id="gameNameInput" placeholder="Super cool game">
+            </div>
+
+            <!-- add new Team container -->
+            <div class="newTeamContainer">
+                <div class="teamsDisplayHeader">Current Teams</div>
+
+                <div class="newTeamDisplay" id="newTeamDisplay"></div>
+
+                <!-- Input field with container -->
+                <div class="newTeamInputContainer">
+                    <label for="newTeam">Add Team</label>
+                    <input type="text" name="newTeam" id="newTeamInput" placeholder="New Team">
+                    <button class="addTeamButton" id="addTeamButton">Add Team</button>
+                </div>
+
+                <button class="addNewGameFormButton" id="addNewGameFormButton">Add Game</button>
+
+            </div>
+        </div>
+
         <div id="addGameButton"><i class="fas fa-plus fa-3x"></i></div>
     </main>
 

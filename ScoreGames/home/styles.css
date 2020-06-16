@@ -17,13 +17,14 @@ body {
 .gameContainer {
     margin: 5px;
     margin-bottom: 15px;
-    padding: 15px;
+    padding: 5px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     width: 89%;
-    max-width: 450px;
-    height: 60px;
+    max-width: 600px;
+    min-height: 60px;
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: auto;
 }
 
 /* Team Container */
@@ -32,14 +33,19 @@ body {
     flex-wrap: wrap;
     width: 60%;
     padding-left: 2%;
-    align-items: center;
+    align-items: top;
+    overflow: hidden;
 }
 
 .team {
-    width: 45%;
-    font-size: 12px;
-    padding: 2px;
-    font-family: 'Open Sans';
+    word-wrap: break-word;
+    width: 41%;
+    font-size: 2vw;
+    padding: 8px;
+    font-family: 'Lexend Tera', serif;
+    overflow: hidden;
+    max
+    
 }
 /* End of Team Container */
 
@@ -53,13 +59,14 @@ body {
 
 .gameName {
     width: 100%;
-    font-family: 'Open Sans';
+    font-family: 'Lexend Tera', serif;
+    font-size: 3vw;
 }
 
 .gameDate {
     width: 100%;
-    font-family: 'Open Sans';
-    font-size: 11px;
+    font-family: 'Lexend Tera', serif;
+    font-size: 7px;
 }
 /* end of Name and Date Container */
 
@@ -87,6 +94,8 @@ body {
 .myGamesAndsettContainer {
     display: flex;
     width: 100%;
+    max-width: 450px;
+    margin: auto;
 }
 
 /* My Games Header */
@@ -95,12 +104,12 @@ body {
     font-size: 18px;
     padding: 5px;
     margin-top: 20px;
-    width:65%;
+    width:60%;
 }
 
 /* Edit Games button container*/
 .buttonContainer {
-    width: 35%;
+    width: 40%;
     display: flex;
     margin-top: 20px;
     font-family: 'Lexend Tera', serif;
@@ -111,11 +120,149 @@ body {
 /* edit Button */
 .editButton {
     text-align: center;
-    padding: 10px;
-    background-color: #57c1ff;
+    padding: 6px;
+    margin: 4px;
+    background-color: #7cbfe6;
     color: black;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* trash can div */
+.trashContainer {
+    display: flex;
+    max-width: 450px;
+    margin: auto;
+    padding: 5px;
+    color: #f98474;
+}
+
+/* Simple class to hide elements */
+.hidden {
+    display: none;
+}
+
+/*********************************************************************************/
+/*********************************************************************************/
+/*********************************************************************************/
+
+/* New Game form Styles */
+
+
+/* Main container */
+.newGame {
+    display: flex;
+    width: 100%;
+    padding: 0px;
+    max-width: 800px;
+    flex-wrap: wrap;
+    margin: auto;
+    text-align:center;
+    font-family: 'Lexend Tera', serif;
+}
+
+/* Container for the input field for name */
+.newGameNameContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 25px;
+    margin: auto;
+    justify-content: center;
+}
+
+/* label for the game Name */
+.newGameNameContainer label {
+    padding-right: 5px;
+}
+
+
+
+
+/* container for the creating of a new team */
+.newTeamContainer {
+    width: 100%;
+    padding-top: 25px;
+}
+
+/* new team display */
+.newTeamDisplay {
+    min-height: 200px;
+    font-size: 12px;
+}
+
+
+
+
+/* add team button */
+.addTeamButton {
+    padding: 10px;
+    margin: 4px;
+    background-color: #7cbfe6;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border: none;
+}
+
+/* The button for adding the new game and starting */
+.addNewGameFormButton {
+    padding: 10px;
+    margin: 40px;
+    margin-top: 100px;
+    background-color: #89da97;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border: none;
+}
+
+/* The container for the collection of teams */
+.newTeamDisplay {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    
+
+}
+
+/* The container for a team*/
+.teamNameDelContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 41%;
+    height: 50px;
+    margin: 5px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* The name for the team in the new team container */
+.teamDisplayForm {
+    width: 90%;
+    align-self: center;
+    overflow: scroll;
+}
+
+/* trash can for deleting teams */
+.teamTrashContainer {
+    display: flex;
+    width: 10%;
+    font-size: auto;
+    margin: auto;
+    padding: 5px;
+    padding-right: 10px;
+    color: #f98474;
+}
+
+.newTeamInputContainer {
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+
+
+@media (max-width: 12450px) { 
+
+}
 
