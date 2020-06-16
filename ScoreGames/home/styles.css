@@ -15,8 +15,7 @@ body {
 
 /* The main Game Container */
 .gameContainer {
-    margin: 5px;
-    margin-bottom: 15px;
+    background-color: whitesmoke;
     padding: 5px;
     display: flex;
     flex-wrap: nowrap;
@@ -25,26 +24,29 @@ body {
     min-height: 60px;
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: auto;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    border: 0.5px solid rgb(231, 231, 231);
 }
 
 /* Team Container */
 .teamContainer {
     display: flex;
     flex-wrap: wrap;
-    width: 60%;
-    padding-left: 2%;
+    width: 70%;
     align-items: top;
     overflow: hidden;
 }
 
 .team {
     word-wrap: break-word;
-    width: 41%;
-    font-size: 2vw;
-    padding: 8px;
+    width: 45%;
+    font-size: 2.3vw;
     font-family: 'Lexend Tera', serif;
     overflow: hidden;
-    max
+    padding: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
     
 }
 /* End of Team Container */
@@ -53,7 +55,7 @@ body {
 .nameDateContainer {
     display: flex;
     flex-wrap: wrap;
-    width: 38%;
+    width: 30%;
     align-items: center;
 }
 
@@ -67,6 +69,11 @@ body {
     width: 100%;
     font-family: 'Lexend Tera', serif;
     font-size: 7px;
+}
+
+.date {
+    width: 100%;
+    font-size: 9px;
 }
 /* end of Name and Date Container */
 

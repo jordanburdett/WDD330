@@ -95,8 +95,6 @@ function loadGames() {
 
 
             //Display all the games
-            console.table(games)
-
             displayGames(games)
         }
         /// WE HAVE NO GAMES TODO DISPLAY CREATE NEW GAME DIALOG OR ENTER GAME CODE
@@ -173,15 +171,15 @@ function displayGame(game) {
     else {
         // AM
 
-        timeString += `${date.getHours()}:${date.getMinutes()}.${date.getSeconds()} AM`
+        timeString += ` ${date.getHours()}:${date.getMinutes()}.${date.getSeconds()} AM`
     }
 
-
-    console.log(date)
-    gameDiv.innerHTML += `<div class='nameDateContainer'>
+    gameDiv.innerHTML += 
+    `<div class='nameDateContainer'>
          <div class='gameName'>${game.name}</div>
+         <div class='date'>${date.toDateString()}</div>
          <div class='gameDate'>${timeString}</div>
-         </div>`
+     </div>`
 
     let teamContainer = document.createElement("div")
     teamContainer.classList.add("teamContainer")
