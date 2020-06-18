@@ -15,6 +15,9 @@ firebase.analytics();
 var database = firebase.database()
 var auth = firebase.auth()
 
+// References to database... Active watches basically.
+var references = []
+
 /***************
  * This function will make sure I am logged in and then update some settings
  * and start to load the games from firebase
@@ -144,7 +147,7 @@ function displayGame(game) {
      * What happens when a game is clicked??? This happens!:)
      */
     gameDiv.addEventListener("click", () => {
-
+        playGame(game.id)
     })
 
     let date = new Date(game.date)
@@ -343,33 +346,109 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
 
     let addGame = {}
     addGame[newPostKey] = true
-    database.ref(`Users/${userInfo.uid}/games`).update(addGame)
+    database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
+        playGame(newPostKey)
+    })
 
-    /********************
-     * *****************
-     * *****************
-     * NEXT WE NEED TO CREATE A FUNCTION TO DISPLAY THE CURRENT GAME. 
-     * THAT FUNCTION NEEDS TO BE CALLED RIGHT HERE.
-     *  PASSING IN THE NEW ID THAT WAS JUST CREATED ON FIREBASE
-     */
+    
 })
 
-/**********
- * This will attach a event listener to a button to test database inserts
+/*****************************
+ * playGame()
+ * This will query the information and set the call back to displayPlayGame
  */
-// document.querySelector("main button").addEventListener("click", () => {
-//     var newPostKey = firebase.database().ref().child('games').push().key;
+function playGame(gameId) {
+    var gameRef = database.ref('games/' + gameId)
+    references.push(gameRef)
 
-//     console.log(newPostKey)
-//     database.ref('games/' + newPostKey).set({
-//         id: newPostKey,
-//         name: "Jordan's game",
-//         teams: ["Team1", "Team2"],
-//         scores: [500, 200],
-//         date: Date.now(),
-//         history: [[0, 200], [1, 500]]
-//     })
-// })
+    gameRef.on('value', game => {
+        if (game.val() == null) {
+            return
+        }
+
+        displayPlayGame(game.val())
+    })
+}
+
+/******************************
+ * displayPlayGame(game)
+ * This will accept a game and display it.
+ */
+function displayPlayGame(game) {
+    let pageHeader = document.querySelector(".myGames")
+    let editButton = document.getElementById("editButton")
+    let addGameButton = document.getElementById("addGameButton")
+    let gamesContainer = document.getElementById("game")
+    let form = document.getElementById("newGameForm")
+    let display = document.getElementById("playGame")
+
+    // Hide Everything on the screen
+    display.innerHTML = ""
+    pageHeader.hidden = true
+    editButton.hidden = true
+    addGameButton.hidden = true
+    gamesContainer.hidden = true
+    form.hidden = true
+
+    // Grid Container
+    let container = document.createElement("div")
+    container.id = game.id
+    container.className = "gridContainer"
+
+    // Game name
+    let gameName = document.createElement("div")
+    gameName.id = "gridGameName"
+    gameName.className = "gridGameName"
+    
+    gameName.textContent = game.name
+
+    // Teams Container
+    let teamContainer = document.createElement("div")
+    teamContainer.id = "gridTeamsContainer"
+    teamContainer.className = "gridTeamsContainer"
+
+    // Create the Teams in the container
+    game.teams.forEach((team, index) => {
+
+        // Container for each team
+        let teamScoreContainer = document.createElement("div")
+        teamScoreContainer.id = index
+        teamScoreContainer.className = "gridTeamScoreContainer"
+
+        // name of the team
+        let newTeamName = document.createElement("div")
+        newTeamName.className = "gridTeam"
+        newTeamName.textContent = team
+
+        // score for the team
+        let score = document.createElement("div")
+        score.className ="gridScore"
+        
+        score.textContent = game.scores[index]
+
+        // manipulating Team buttons
+
+
+        // put it all together
+        teamScoreContainer.appendChild(newTeamName)
+        teamScoreContainer.appendChild(score)
+
+        teamContainer.appendChild(teamScoreContainer)
+    })
+
+    // History Container
+    let historyContainer = document.createElement("div")
+    historyContainer.id = "gridHistoryContainer"
+    historyContainer.className = "gridHistoryContainer"
+
+    // Put them all together
+    container.appendChild(gameName)
+    container.appendChild(teamContainer)
+    container.appendChild(historyContainer)
+
+    display.appendChild(container)
+}
+
 
 // EXAMPLE OF HOW TO UPDATE DATA IN FIREBASE
 // function update() {
