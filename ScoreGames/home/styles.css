@@ -274,3 +274,66 @@ body {
 /******** This Section is for when the game is being played *************/
 /************************************************************************/
 /************************************************************************/
+
+#playGame {
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    margin: auto;
+
+    display: flex;
+}
+
+.gridContainer {
+    
+    display: grid;
+    
+    grid-template-rows: auto auto;
+    font-family: 'Lexend Tera', serif;
+    
+    width: 100%;
+    max-width: 800px;
+}
+
+.gridGameName {
+    padding: 10px;
+    text-align: center;
+}
+
+.gridTeamsContainer {
+
+    display: flex;  
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gridTeamScoreContainer {
+    margin: 10px;
+    padding: 10px;
+    max-width: 122px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.gridTeam {
+    margin-bottom: 10px;
+    width: 100%;
+    overflow: scroll;
+    font-size: 11px;
+}
+
+.gridScore {
+    border: black solid 2px;
+    padding: 5px;
+    padding-top: 25px;
+}
+
+.editScoreButton {
+    width: 100%;
+    padding: 20px;
+}
+

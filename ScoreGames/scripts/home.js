@@ -1,4 +1,3 @@
-
 var firebaseConfig = {
     apiKey: "AIzaSyB2aJwBVVsCSVzX_MnSHAbO5gXgn59CeXs",
     authDomain: "scoregames-c0233.firebaseapp.com",
@@ -427,12 +426,29 @@ function displayPlayGame(game) {
         score.textContent = game.scores[index]
 
         // manipulating Team buttons
+        let addButton = document.createElement("div")
+        addButton.className = "editScoreButton"
+        addButton.textContent = "Edit"
+        addButton.addEventListener("click", () => {
 
+            let newScores = []
+
+            game.scores.forEach(score => {
+                newScores.push(score + 1)
+            })
+
+            let updates = {
+                date: Date.now(),
+                scores: newScores,
+            }
+
+            database.ref("games/" + game.id).update(updates)
+        })
 
         // put it all together
         teamScoreContainer.appendChild(newTeamName)
         teamScoreContainer.appendChild(score)
-
+        teamScoreContainer.appendChild(addButton)
         teamContainer.appendChild(teamScoreContainer)
     })
 

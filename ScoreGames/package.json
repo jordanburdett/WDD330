@@ -1,0 +1,14 @@
+{
+  "name": "scoregames",
+  "version": "1.0.0",
+  "description": "Games scoring application with realtime database updates using firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordan Burdett",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^7.15.1"
+  }
+}
