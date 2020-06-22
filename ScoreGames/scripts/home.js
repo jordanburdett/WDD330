@@ -59,49 +59,49 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 
     if (currentTheme === "light") {
         toggle.dataset.theme = "dark"
-        
+
         styles.set('--bg-color',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--dark-bg-color'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-bg-color'))
 
         styles.set('--text-color',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--dark-text-color'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-text-color'))
 
         styles.set('--button-colors',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--dark-button-colors'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-button-colors'))
 
         styles.set('--crown-color',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--dark-crown-color'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-crown-color'))
 
         styles.set('--card-background',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--dark-card-background'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-card-background'))
     }
 
     if (currentTheme === "dark") {
         toggle.dataset.theme = "light"
         styles.set('--bg-color',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--light-bg-color'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-bg-color'))
 
         styles.set('--text-color',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--light-text-color'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-text-color'))
 
         styles.set('--button-colors',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--light-button-colors'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-button-colors'))
 
         styles.set('--crown-color',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--light-crown-color'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-crown-color'))
 
         styles.set('--card-background',
-        getComputedStyle(document.documentElement)
-        .getPropertyValue('--light-card-background'))
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-card-background'))
     }
 
     let root = document.documentElement
@@ -242,12 +242,12 @@ function displayGame(game) {
 
     console.log(timeString)
 
-    gameDiv.innerHTML += 
-    `<div class='nameDateContainer'>
+    gameDiv.innerHTML +=
+        `<div class='nameDateContainer'>
          <div class='gameName'>${game.name}</div>
      </div>`
 
-     // Holds all the teams
+    // Holds all the teams
     let teamContainer = document.createElement("div")
     teamContainer.classList.add("teamContainer")
 
@@ -406,9 +406,13 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
     addGame[newPostKey] = true
     database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
         playGame(newPostKey)
+
+        let form = document.getElementById("newGameForm")
+        form.classList.toggle("hidden")
+        form.classList.toggle("newGame")
     })
 
-    
+
 })
 
 /*****************************
@@ -437,7 +441,7 @@ function displayPlayGame(game) {
     let editButton = document.getElementById("editButton")
     let addGameButton = document.getElementById("addGameButton")
     let gamesContainer = document.getElementById("game")
-    let form = document.getElementById("newGameForm")
+
     let display = document.getElementById("playGame")
 
     // Hide Everything on the screen
@@ -446,8 +450,6 @@ function displayPlayGame(game) {
     editButton.hidden = true
     addGameButton.hidden = true
     gamesContainer.hidden = true
-    form.classList.toggle("hidden")
-    form.classList.toggle("newGame")
 
     // Grid Container
     let container = document.createElement("div")
@@ -458,7 +460,7 @@ function displayPlayGame(game) {
     let gameName = document.createElement("div")
     gameName.id = "gridGameName"
     gameName.className = "gridGameName"
-    
+
     gameName.textContent = game.name
 
     // Teams Container
@@ -481,8 +483,8 @@ function displayPlayGame(game) {
 
         // score for the team
         let score = document.createElement("div")
-        score.className ="gridScore"
-        
+        score.className = "gridScore"
+
         score.textContent = game.scores[index]
 
         // manipulating Team buttons
