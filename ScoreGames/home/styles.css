@@ -288,7 +288,10 @@ body {
     padding-right: 5px;
 }
 
-
+/* Text input for the game name */
+.formTextInput {
+    font-size: 16px;
+}
 
 
 /* container for the creating of a new team */
@@ -300,7 +303,7 @@ body {
 /* new team display */
 .newTeamDisplay {
     min-height: 200px;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 
