@@ -48,6 +48,70 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 /***************************
+ * Event listener for dark mode toggle
+ */
+document.getElementById("themeToggle").addEventListener("click", () => {
+    console.log("IN DARK MODE TOGGLE")
+    let toggle = document.getElementById("themeToggle")
+    let currentTheme = toggle.dataset.theme
+
+    let styles = new Map()
+
+    if (currentTheme === "light") {
+        toggle.dataset.theme = "dark"
+        
+        styles.set('--bg-color',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--dark-bg-color'))
+
+        styles.set('--text-color',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--dark-text-color'))
+
+        styles.set('--button-colors',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--dark-button-colors'))
+
+        styles.set('--crown-color',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--dark-crown-color'))
+
+        styles.set('--card-background',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--dark-card-background'))
+    }
+
+    if (currentTheme === "dark") {
+        toggle.dataset.theme = "light"
+        styles.set('--bg-color',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--light-bg-color'))
+
+        styles.set('--text-color',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--light-text-color'))
+
+        styles.set('--button-colors',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--light-button-colors'))
+
+        styles.set('--crown-color',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--light-crown-color'))
+
+        styles.set('--card-background',
+        getComputedStyle(document.documentElement)
+        .getPropertyValue('--light-card-background'))
+    }
+
+    let root = document.documentElement
+
+    styles.forEach((value, key) => {
+        root.style.setProperty(key, value)
+    })
+})
+
+/***************************
  * This just grabs the user and formats the information to
  * make it easier to use
  */
@@ -152,7 +216,7 @@ function displayGame(game) {
     let date = new Date(game.date)
 
     let hours = date.getHours()
-    let timeString = ""
+    let timeString = date.toDateString()
 
     // Change my time stamp to understandable numbers.
     if (hours >= 12) {
@@ -160,11 +224,11 @@ function displayGame(game) {
 
         // check for 12
         if (hours == 12) {
-            timeString += `${hours}:`
+            timeString += ` ${hours}:`
         }
         else {
             hours = hours - 12
-            timeString += `${hours}:`
+            timeString += ` ${hours}:`
         }
 
         timeString += `${date.getMinutes()}.${date.getSeconds()} PM`
@@ -176,32 +240,27 @@ function displayGame(game) {
         timeString += ` ${date.getHours()}:${date.getMinutes()}.${date.getSeconds()} AM`
     }
 
+    console.log(timeString)
+
     gameDiv.innerHTML += 
     `<div class='nameDateContainer'>
          <div class='gameName'>${game.name}</div>
-         <div class='date'>${date.toDateString()}</div>
-         <div class='gameDate'>${timeString}</div>
      </div>`
 
+     // Holds all the teams
     let teamContainer = document.createElement("div")
     teamContainer.classList.add("teamContainer")
 
-    for (index in game.teams) {
-        if (index < 4) {
-            let team = document.createElement("div")
-            team.id = game.teams[index]
-            team.classList.add("team")
+    // Current winner
+    let winner = document.createElement("div")
+    winner.classList.add("team")
+    winner.innerHTML = '<i class="fas fa-crown"></i>' + game.teams[0]
 
-            team.innerHTML = `
-            ${game.teams[index]}: ${game.scores[index]}
-        `
-            team.classList.add("team")
-
-            teamContainer.appendChild(team)
-        }
-    }
+    teamContainer.appendChild(winner)
 
     gameDiv.appendChild(teamContainer)
+    gameDiv.innerHTML += `<div class='gameDate'>${timeString}</div>`
+
     display.appendChild(gameDiv)
 }
 
@@ -387,7 +446,8 @@ function displayPlayGame(game) {
     editButton.hidden = true
     addGameButton.hidden = true
     gamesContainer.hidden = true
-    form.hidden = true
+    form.classList.toggle("hidden")
+    form.classList.toggle("newGame")
 
     // Grid Container
     let container = document.createElement("div")

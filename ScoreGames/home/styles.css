@@ -1,7 +1,92 @@
+:root {
+    --bg-color: white;
+    --text-color: black;
+    --button-colors: #57c1ff;
+    --crown-color: rgb(255, 217, 0);
+    --card-background: whitesmoke;
+
+    --light-bg-color: white;
+    --light-text-color: black;
+    --light-button-colors: #57c1ff;
+    --light-crown-color: rgb(255, 217, 0);
+    --light-card-background: whitesmoke;
+
+    --dark-bg-color: black;
+    --dark-text-color: white;
+    --dark-button-colors: #57c1ff;
+    --dark-crown-color: rgb(255, 217, 0);
+    --dark-card-background: #262626;
+  }
+
+
 body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0px;
     padding: 0px;
 }
+
+/* CSS For theme toggle */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--button-colors);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px var(--button-colors);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+/* End of Theme toggle*/
 
 /* Game Score Header */
 .pageHeader {
@@ -11,14 +96,28 @@ body {
     padding: 30px;
 }
 
+.themeToggle {
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    
+}
+
+.themeToggleLabel {
+    padding-left: 5px;
+    font-family: 'Lexend Tera', serif;
+}
 /* Contains elements inside each game ******* Start of section ****************/
 
 /* The main Game Container */
 .gameContainer {
-    background-color: whitesmoke;
+    background-color: var(--card-background);
     padding: 5px;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 89%;
     max-width: 600px;
     min-height: 60px;
@@ -26,56 +125,63 @@ body {
     margin: auto;
     margin-bottom: 8px;
     margin-top: 8px;
-    border: 0.5px solid rgb(231, 231, 231);
 }
-
-/* Team Container */
-.teamContainer {
-    display: flex;
-    flex-wrap: wrap;
-    width: 70%;
-    align-items: top;
-    overflow: hidden;
-}
-
-.team {
-    word-wrap: break-word;
-    width: 45%;
-    font-size: 2.3vw;
-    font-family: 'Lexend Tera', serif;
-    overflow: hidden;
-    padding: 10px;
-    padding-left: 0px;
-    padding-right: 0px;
-    
-}
-/* End of Team Container */
 
 /* The Name and Date Container */
 .nameDateContainer {
     display: flex;
     flex-wrap: wrap;
-    width: 30%;
-    align-items: center;
+    width: 100%;
 }
 
 .gameName {
     width: 100%;
     font-family: 'Lexend Tera', serif;
-    font-size: 3vw;
+    font-size: 18px;
+    text-align:left;
+    padding: 5px;
+    overflow: hidden;
 }
 
 .gameDate {
-    width: 100%;
+    padding: 3px;
+    margin-left: 5px;
     font-family: 'Lexend Tera', serif;
     font-size: 7px;
+    color: rgb(150, 150, 150);
+    width: 100%;
+    text-align: right;
 }
 
-.date {
-    width: 100%;
-    font-size: 9px;
-}
 /* end of Name and Date Container */
+
+/* Team Container */
+.teamContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: top;
+    overflow: hidden;
+    font-family: 'Lexend Tera', serif;
+    font-size: 14px;
+    justify-content: center;
+}
+
+.team {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.fa-crown {
+    color: var(--crown-color);
+    margin: 5px;
+    font-size: 20px;
+    
+}
+/* End of Team Container */
+
+
 
 /* End of section *****************************************************/
 
@@ -87,13 +193,12 @@ body {
     right: 4%;
     height: 50px;
     width: 50px;
-    background-color: #57c1ff;
+    background-color: var(--button-colors);
     color:black;
     padding: 10px;
     border-radius: 25px;
     text-align: center;
     align-items: center;
-    border: 2px solid #7cbfe6;
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -127,9 +232,9 @@ body {
 /* edit Button */
 .editButton {
     text-align: center;
-    padding: 6px;
+    padding: 8px;
     margin: 4px;
-    background-color: #7cbfe6;
+    background-color: var(--button-colors);
     color: black;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
@@ -204,8 +309,8 @@ body {
 /* add team button */
 .addTeamButton {
     padding: 10px;
-    margin: 4px;
-    background-color: #7cbfe6;
+    margin: 10px;
+    background-color: var(--button-colors);
     color: black;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
@@ -214,14 +319,28 @@ body {
 
 /* The button for adding the new game and starting */
 .addNewGameFormButton {
-    padding: 10px;
-    margin: 40px;
-    margin-top: 100px;
+    padding: 8px;
+    margin: 20px;
+    margin-top: 40px;
     background-color: #89da97;
     color: black;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     border: none;
+
+    margin-left: auto;
+}
+
+/* Container for adding the new game and starting */
+.addNewGameFormButtonContainer {
+    display: flex;
+    justify-content: right;
+    align-content: right;
+    text-align: right;
+    align-items: right;
+    float:right;
+
+    width: 100%;
 }
 
 /* The container for the collection of teams */
@@ -241,6 +360,7 @@ body {
     width: 41%;
     height: 50px;
     margin: 5px;
+    background-color: var(--card-background);
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -315,7 +435,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-
+    background-color: var(--card-background);
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -327,7 +447,6 @@ body {
 }
 
 .gridScore {
-    border: black solid 2px;
     padding: 5px;
     padding-top: 25px;
 }

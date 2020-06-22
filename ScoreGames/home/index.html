@@ -18,6 +18,14 @@
         <div class="pageHeader">Score Games</div>
     </header>
     <main>
+        <div class="themeToggle">
+            <label class="switch">
+                <input type="checkbox" id="themeToggle" data-theme="light">
+                <span class="slider round"></span>
+            </label>
+            <label class="themeToggleLabel">Dark Mode</label>
+            
+        </div>
         <div class="myGamesAndsettContainer">
             <div class="myGames">My Games:</div>
 
@@ -30,6 +38,13 @@
 
         <div id="game"></div>
         <div id="playGame"></div>
+
+
+
+
+
+
+
         <div id="newGameForm" class="hidden">
             <!-- Name for new name container -->
             <div class="newGameNameContainer">
@@ -50,9 +65,15 @@
                     <button class="addTeamButton" id="addTeamButton">Add Team</button>
                 </div>
 
-                <button class="addNewGameFormButton" id="addNewGameFormButton">Add Game</button>
+                
 
             </div>
+
+            <!-- Add new Game Button -->
+            <div class="addNewGameFormButtonContainer">
+                <div class="addNewGameFormButton" id="addNewGameFormButton">Add Game</div>
+            </div>
+            
         </div>
 
         <div id="addGameButton"><i class="fas fa-plus fa-3x"></i></div>
