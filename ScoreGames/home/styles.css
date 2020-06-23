@@ -26,6 +26,14 @@ body {
     padding: 0px;
 }
 
+/* Back Button */
+.backButtonContainer {
+    color: var(--text-color);
+    padding: 15px;
+    padding-bottom: 0px;
+    transition: transform 0.5s ease;
+}
+
 /* CSS For theme toggle */
 .switch {
     position: relative;
@@ -93,7 +101,8 @@ body {
     font-family: 'Lexend Tera', serif;
     font-size: 28px;
     text-align: center;
-    padding: 30px;
+    padding: 20px;
+    padding-top: 10px;
 }
 
 .themeToggle {
@@ -302,12 +311,14 @@ body {
 
 /* new team display */
 .newTeamDisplay {
-    min-height: 200px;
+    min-height: 50px;
     font-size: 16px;
 }
 
-
-
+/* Header for the teams container */
+.teamsDisplayHeader {
+    padding: 5px;
+}
 
 /* add team button */
 .addTeamButton {
@@ -386,6 +397,7 @@ body {
 }
 
 .newTeamInputContainer {
+    margin-top: 20px;
     width: 100%;
     flex-wrap: nowrap;
 }

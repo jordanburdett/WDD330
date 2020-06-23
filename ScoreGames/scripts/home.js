@@ -159,7 +159,6 @@ function loadGames() {
                 games.push(game)
             }
 
-
             //Display all the games
             displayGames(games)
         }
@@ -239,8 +238,6 @@ function displayGame(game) {
 
         timeString += ` ${date.getHours()}:${date.getMinutes()}.${date.getSeconds()} AM`
     }
-
-    console.log(timeString)
 
     gameDiv.innerHTML +=
         `<div class='nameDateContainer'>
@@ -333,8 +330,28 @@ document.getElementById("addGameButton").addEventListener("click", () => {
     // Hide Add new Button
     addGameButton.hidden = true
 
-    // HIde Games
+    // Hide Games
     gamesContainer.hidden = true
+
+    // back button
+    let backButton = document.getElementById("backButton")
+    backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
+    backButton.addEventListener("click", () => {
+
+        // fix some things
+        pageHeader.textContent = "My Games"
+        editButton.hidden = false
+        addGameButton.hidden = false
+        gamesContainer.hidden = false
+
+        form.className = "hidden"
+
+        // remove the back button
+        backButton.innerHTML = ""
+
+        // reload the games
+        loadGames()
+    })
 
     // show form for creating new Game
     form.classList.toggle("newGame")
@@ -441,15 +458,15 @@ function displayPlayGame(game) {
     let editButton = document.getElementById("editButton")
     let addGameButton = document.getElementById("addGameButton")
     let gamesContainer = document.getElementById("game")
-
     let display = document.getElementById("playGame")
 
     // Hide Everything on the screen
     display.innerHTML = ""
-    pageHeader.hidden = true
+    gamesContainer.innerHTML = ""
+
     editButton.hidden = true
     addGameButton.hidden = true
-    gamesContainer.hidden = true
+    pageHeader.hidden = true
 
     // Grid Container
     let container = document.createElement("div")
@@ -523,32 +540,24 @@ function displayPlayGame(game) {
     container.appendChild(gameName)
     container.appendChild(teamContainer)
     container.appendChild(historyContainer)
-
     display.appendChild(container)
+
+
+    // add the backbutton
+    let backButton = document.getElementById("backButton")
+    backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
+    backButton.addEventListener("click", () => {
+
+        // fix some things
+        display.innerHTML = ""
+        editButton.hidden = false
+        addGameButton.hidden = false
+        pageHeader.hidden = false
+
+        // remove the back button
+        backButton.innerHTML = ""
+
+        // reload the games
+        loadGames()
+    })
 }
-
-
-// EXAMPLE OF HOW TO UPDATE DATA IN FIREBASE
-// function update() {
-//     let nameField = document.querySelector("div input")
-//     let name = nameField.value
-
-//     let updates = {
-//         name: name
-//     }
-//     database.ref("games/-M9dN_bbestYpAsWl7e7").update(updates)
-
-//     nameField.value = ""
-//     return
-// }
-
-// EXAMPLE OF HOW TO ATTACH A LISTENER TO FIREBASE DATA
-// var gameRef = database.ref('games/-M9dN_bbestYpAsWl7e7')
-// gameRef.on('value', (snapshot) => {
-
-//     if (snapshot.val() == null) {
-//         return
-//     }
-
-//     displayGame(snapshot.val())
-// })
