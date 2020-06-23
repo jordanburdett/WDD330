@@ -505,29 +505,85 @@ function displayPlayGame(game) {
         score.textContent = game.scores[index]
 
         // manipulating Team buttons
-        let addButton = document.createElement("div")
-        addButton.className = "editScoreButton"
-        addButton.textContent = "Edit"
-        addButton.addEventListener("click", () => {
+        let expand = document.createElement("div")
+        expand.className = "expandCardButton"
+        expand.innerHTML = '<i class="fas fa-chevron-down"></i>'
 
-            let newScores = []
+        expand.addEventListener("click", () => {
+            expand.classList.toggle("spin90")
 
-            game.scores.forEach(score => {
-                newScores.push(score + 1)
-            })
+            if (expand.getAttribute("data-expanded") === "true") {
+                // remove everything
+                expand.setAttribute("data-expanded", "false")
+                teamScoreContainer.lastChild.remove()
+            }
+            else {
+                expand.setAttribute("data-expanded", "true")
+                // Add input
+                let input = document.createElement("input")
+                input.className = "teamInputScore"
+                input.type = "number"
+                input.placeholder = "0"
 
-            let updates = {
-                date: Date.now(),
-                scores: newScores,
+                input.addEventListener("input", () => {
+                    if (input.value) {
+                        // Ensure that the add button shows
+                        if (input.getAttribute("data-showingButton") === "true") {
+
+                        }
+                        else {
+                            input.setAttribute("data-showingButton", "true")
+                            let saveButton = document.createElement("div")
+                            saveButton.className = "editButton"
+                            saveButton.textContent = "Save"
+
+                            // What happens when the changes are saved
+                            saveButton.addEventListener("click", () => {
+                                let newScores = []
+
+
+                                for (i in game.scores) {
+
+                                    if (index == i) {
+                                        newScores.push(Number(game.scores[i]) + Number(input.value))
+                                    }
+                                    else {
+                                        newScores.push(game.scores[i])
+                                    }
+                                }
+
+
+                                let updates = {
+                                    date: Date.now(),
+                                    scores: newScores,
+                                }
+
+                                database.ref("games/" + game.id).update(updates)
+                            })
+
+                            teamScoreContainer.appendChild(saveButton)
+                        }
+
+                    }
+                    else {
+                        // Ensure that the add button is gone
+                        if (input.getAttribute("data-showingButton") === "true") {
+                            teamScoreContainer.lastChild.remove()
+                        }
+
+                    }
+                })
+
+                teamScoreContainer.appendChild(input)
+                // Add buttons text input for putting in the correct amount of points
             }
 
-            database.ref("games/" + game.id).update(updates)
         })
 
         // put it all together
         teamScoreContainer.appendChild(newTeamName)
         teamScoreContainer.appendChild(score)
-        teamScoreContainer.appendChild(addButton)
+        teamScoreContainer.appendChild(expand)
         teamContainer.appendChild(teamScoreContainer)
     })
 

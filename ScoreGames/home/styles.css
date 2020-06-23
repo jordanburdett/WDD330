@@ -415,17 +415,13 @@ body {
     margin: auto;
     width: 100%;
     margin: auto;
-
     display: flex;
 }
 
 .gridContainer {
-    
     display: grid;
-    
     grid-template-rows: auto auto;
     font-family: 'Lexend Tera', serif;
-    
     width: 100%;
     max-width: 800px;
 }
@@ -462,12 +458,22 @@ body {
 }
 
 .gridScore {
-    padding: 5px;
-    padding-top: 25px;
+    padding: 8px;
 }
 
-.editScoreButton {
+.expandCardButton {
     width: 100%;
-    padding: 20px;
+    padding: 5px;
+    transition: 1s;
+}
+
+.spin90 {
+    transition: 1s;
+    transform: rotate(180deg);
+}
+
+.teamInputScore {
+    width: 100%;
+    margin: auto;
 }
 
