@@ -192,6 +192,7 @@ function displayGames(games) {
     display.innerHTML = ""
 
     games.forEach(game => {
+        console.log(game + "   HERE")
         displayGame(game)
     })
 }
@@ -251,7 +252,7 @@ function displayGame(game) {
     // Current winner
     let winner = document.createElement("div")
     winner.classList.add("team")
-    winner.innerHTML = '<i class="fas fa-crown"></i>' + game.teams[0]
+    winner.innerHTML = '<i class="fas fa-crown"></i>' + findWinner(createMap(game.teams))
 
     teamContainer.appendChild(winner)
 
@@ -260,6 +261,36 @@ function displayGame(game) {
 
     display.appendChild(gameDiv)
 }
+
+/***********
+ * Takes a map of teams and returns a string of the highest score
+ */
+function findWinner(teams) {
+    let score = 0
+    let winnerName = "Winner"
+    teams.forEach((value, key) => {
+        console.log(value)
+        console.log(key)
+
+        if (value > score) {
+            winnerName = key
+            score = value
+        }
+    })
+
+    return winnerName
+}
+
+/*********
+ * Turns a object into a map
+ */
+function createMap(obj) { 
+    let map = new Map() 
+    Object.keys(obj).forEach(key => { 
+        map.set(key, obj[key]) 
+    })
+    return map
+} 
 
 /**************************
  * Event listener for edit button
@@ -485,30 +516,32 @@ function displayPlayGame(game) {
     teamContainer.id = "gridTeamsContainer"
     teamContainer.className = "gridTeamsContainer"
 
+    let teams = createMap(game.teams)
     // Create the Teams in the container
-    game.teams.forEach((team, index) => {
+    teams.forEach((value, key) => {
 
         // Container for each team
         let teamScoreContainer = document.createElement("div")
-        teamScoreContainer.id = index
+        teamScoreContainer.id = key
         teamScoreContainer.className = "gridTeamScoreContainer"
 
         // name of the team
         let newTeamName = document.createElement("div")
         newTeamName.className = "gridTeam"
-        newTeamName.textContent = team
+        newTeamName.textContent = key
 
         // score for the team
         let score = document.createElement("div")
         score.className = "gridScore"
 
-        score.textContent = game.scores[index]
+        score.textContent = value
 
         // manipulating Team buttons
         let expand = document.createElement("div")
         expand.className = "expandCardButton"
         expand.innerHTML = '<i class="fas fa-chevron-down"></i>'
 
+        /**** Event listener for expanding a team */
         expand.addEventListener("click", () => {
             expand.classList.toggle("spin90")
 
@@ -525,6 +558,7 @@ function displayPlayGame(game) {
                 input.type = "number"
                 input.placeholder = "0"
 
+                /******* Event listener for check for changes in input field */
                 input.addEventListener("input", () => {
                     if (input.value) {
                         // Ensure that the add button shows
@@ -539,26 +573,21 @@ function displayPlayGame(game) {
 
                             // What happens when the changes are saved
                             saveButton.addEventListener("click", () => {
-                                let newScores = []
 
+                                let teamsUpdate = createMap(game.teams)
+                                teamsUpdate.set(key, Number(value) + Number(input.value))
 
-                                for (i in game.scores) {
-
-                                    if (index == i) {
-                                        newScores.push(Number(game.scores[i]) + Number(input.value))
-                                    }
-                                    else {
-                                        newScores.push(game.scores[i])
-                                    }
-                                }
-
-
+                                console.log(Object.fromEntries(teamsUpdate))
                                 let updates = {
                                     date: Date.now(),
-                                    scores: newScores,
+                                    teams: Object.fromEntries(teamsUpdate)
                                 }
 
                                 database.ref("games/" + game.id).update(updates)
+
+                                /******************************** 
+                                 * NEXT WE NEED TO CHANGE ADD GAME TO ADAPT TO THE NEW JSON STRUCTURE!:)
+                                 */
                             })
 
                             teamScoreContainer.appendChild(saveButton)
