@@ -26,10 +26,6 @@ body {
     padding: 0px;
 }
 
-#game {
-    overflow: scroll;
-}
-
 /* Back Button */
 .backButtonContainer {
     color: var(--text-color);
