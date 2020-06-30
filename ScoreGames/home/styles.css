@@ -198,7 +198,8 @@ body {
 
 /* Add game button */
 #addGameButton {
-    position: fixed;
+    /* This was changed from fixed to absolute in order to fix transitions */
+    position: absolute;
     bottom: 4%;
     right: 4%;
     height: 50px;
