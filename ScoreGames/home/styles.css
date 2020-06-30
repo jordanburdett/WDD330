@@ -24,6 +24,7 @@ body {
     color: var(--text-color);
     margin: 0px;
     padding: 0px;
+    overflow: hidden;
 }
 
 /* Back Button */
