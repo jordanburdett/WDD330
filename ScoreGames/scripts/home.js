@@ -189,12 +189,14 @@ async function getGameFromFirebase(gameId) {
 function displayGames(games) {
     let display = document.querySelector("#game")
 
-    display.innerHTML = ""
+    display.innerHTML = "<div class='loading'>loading</div>"
 
     games.forEach(game => {
         console.log(game + "   HERE")
         displayGame(game)
     })
+    display.firstChild.remove()
+    gsap.from(".gameContainer", {duration: 0.5, scale: 0.9, stagger: 0.1, y: 600, ease: "expo", delay: 0.1})
 }
 
 /********************
@@ -263,7 +265,8 @@ function displayGame(game) {
 }
 
 /***********
- * Takes a map of teams and returns a string of the highest score
+ * Takes a map of teams and returns a the 
+ * name of the team as a string of the highest score
  */
 function findWinner(teams) {
     let score = 0
@@ -430,11 +433,9 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
     let date = Date.now()
     let userInfo = getUserInfo()
 
-    teams = []
-    scores = []
+    teams = {}
     teamsHTML.forEach(team => {
-        teams.push(team.textContent)
-        scores.push(0)
+        teams[team.textContent] = 0
     })
 
     console.log(teams)
@@ -447,7 +448,6 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
         teams: teams,
         date: date,
         history: [],
-        scores: scores
     })
 
     let addGame = {}

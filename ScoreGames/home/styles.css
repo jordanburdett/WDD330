@@ -24,7 +24,10 @@ body {
     color: var(--text-color);
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
+}
+
+#game {
+    overflow: scroll;
 }
 
 /* Back Button */
@@ -199,7 +202,7 @@ body {
 /* Add game button */
 #addGameButton {
     /* This was changed from fixed to absolute in order to fix transitions */
-    position: absolute;
+    position: fixed;
     bottom: 4%;
     right: 4%;
     height: 50px;
@@ -384,7 +387,7 @@ body {
 .teamDisplayForm {
     width: 90%;
     align-self: center;
-    overflow: scroll;
+    overflow: initial;
 }
 
 /* trash can for deleting teams */
@@ -456,7 +459,7 @@ body {
     margin-bottom: 10px;
     width: 100%;
     overflow: scroll;
-    font-size: 11px;
+    font-size: 16px;
 }
 
 .gridScore {
