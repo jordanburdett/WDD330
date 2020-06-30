@@ -556,6 +556,7 @@ function displayPlayGame(game) {
                 let input = document.createElement("input")
                 input.className = "teamInputScore"
                 input.type = "number"
+                input.pattern = "[0-9]*"
                 input.placeholder = "0"
 
                 /******* Event listener for check for changes in input field */
