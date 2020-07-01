@@ -558,7 +558,7 @@ function displayPlayGame(game) {
                 input.type = "number"
                 input.pattern = "[0-9]*"
                 input.placeholder = "0"
-                input.autofocus = true
+                
 
                 /******* Event listener for check for changes in input field */
                 input.addEventListener("input", () => {
@@ -606,6 +606,8 @@ function displayPlayGame(game) {
                 })
 
                 teamScoreContainer.appendChild(input)
+
+                input.focus()
                 // Add buttons text input for putting in the correct amount of points
             }
 
