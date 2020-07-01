@@ -239,8 +239,8 @@ body {
     align-items: center;
 }
 
-/* edit Button */
-.editButton {
+/* add Button */
+.addButton {
     text-align: center;
     padding: 8px;
     margin: 4px;
@@ -248,6 +248,23 @@ body {
     color: black;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    width: 25px;
+    height: 25px;
+    justify-content: center;
+}
+
+/* Sub Button */
+.subButton {
+    text-align: center;
+    padding: 8px;
+    margin: 4px;
+    background-color: rgb(235, 110, 110);
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    width: 25px;
+    height: 25px;
+    justify-content: center;
 }
 
 /* trash can div */

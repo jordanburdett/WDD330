@@ -569,12 +569,12 @@ function displayPlayGame(game) {
                         }
                         else {
                             input.setAttribute("data-showingButton", "true")
-                            let saveButton = document.createElement("div")
-                            saveButton.className = "editButton"
-                            saveButton.textContent = "Save"
+                            let addButton = document.createElement("div")
+                            addButton.className = "addButton"
+                            addButton.textContent = "+"
 
                             // What happens when the changes are saved
-                            saveButton.addEventListener("click", () => {
+                            addButton.addEventListener("click", () => {
 
                                 let teamsUpdate = createMap(game.teams)
                                 teamsUpdate.set(key, Number(value) + Number(input.value))
@@ -587,12 +587,29 @@ function displayPlayGame(game) {
 
                                 database.ref("games/" + game.id).update(updates)
 
-                                /******************************** 
-                                 * NEXT WE NEED TO CHANGE ADD GAME TO ADAPT TO THE NEW JSON STRUCTURE!:)
-                                 */
                             })
 
-                            teamScoreContainer.appendChild(saveButton)
+                            let subButton = document.createElement("div")
+                            subButton.className = "subButton"
+                            subButton.textContent = "-"
+
+                            // What happens when the subtract button is clicked
+                            subButton.addEventListener("click", () => {
+                                let teamsUpdate = createMap(game.teams)
+                                teamsUpdate.set(key, Number(value) - Number(input.value))
+
+                                console.log(Object.fromEntries(teamsUpdate))
+                                let updates = {
+                                    date: Date.now(),
+                                    teams: Object.fromEntries(teamsUpdate)
+                                }
+
+                                database.ref("games/" + game.id).update(updates)
+                            })
+
+
+                            teamScoreContainer.appendChild(subButton)
+                            teamScoreContainer.appendChild(addButton)
                         }
 
                     }
