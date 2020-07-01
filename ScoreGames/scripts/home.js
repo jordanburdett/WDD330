@@ -308,9 +308,11 @@ document.getElementById("addGameButton").addEventListener("click", () => {
     gamesContainer.hidden = true
 
     // back button
-    let backButton = document.getElementById("backButton")
+    let backButton = document.createElement("div")
+    backButton.className = "backButton"
     backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
 
+    document.querySelector("body").insertBefore(backButton, document.querySelector("body").firstChild)
     /********
      * What happens when the back button is clicked
      */
@@ -325,7 +327,7 @@ document.getElementById("addGameButton").addEventListener("click", () => {
         form.className = "hidden"
 
         // remove the back button
-        backButton.innerHTML = ""
+        backButton.remove()
 
         // reload the games
         loadGames()
@@ -377,6 +379,35 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
     let date = Date.now()
     let userInfo = getUserInfo()
 
+
+    /***************************
+     * ERROR HANDLING
+     */
+    if (gameName.length < 1) {
+        console.log("GameName is required")
+
+        document.getElementById("gameNameInput").style.setProperty("border", "1px solid red")
+        return
+    }
+    else {
+        document.getElementById("gameNameInput").style.setProperty("border", "1px solid lightgreen")
+    }
+
+    if (document.getElementById("newTeamDisplay").children.length < 1) {
+        console.log("At least 1 team is required")
+
+        document.getElementById("newTeamInput").style.setProperty("border", "1px solid red")
+        return
+    }
+    else {  
+        document.getElementById("newTeamInput").style.setProperty("border", "1px solid lightgreen")
+    }
+
+
+
+
+     /* End of error handling */
+
     teams = {}
     teamsHTML.forEach(team => {
         teams[team.textContent] = 0
@@ -397,6 +428,8 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
     let addGame = {}
     addGame[newPostKey] = true
     database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
+
+        document.querySelector(".backButton").remove()
         playGame(newPostKey)
 
         let form = document.getElementById("newGameForm")
