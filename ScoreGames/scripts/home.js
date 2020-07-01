@@ -48,70 +48,6 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 /***************************
- * Event listener for dark mode toggle
- */
-document.getElementById("themeToggle").addEventListener("click", () => {
-    console.log("IN DARK MODE TOGGLE")
-    let toggle = document.getElementById("themeToggle")
-    let currentTheme = toggle.dataset.theme
-
-    let styles = new Map()
-
-    if (currentTheme === "light") {
-        toggle.dataset.theme = "dark"
-
-        styles.set('--bg-color',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--dark-bg-color'))
-
-        styles.set('--text-color',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--dark-text-color'))
-
-        styles.set('--button-colors',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--dark-button-colors'))
-
-        styles.set('--crown-color',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--dark-crown-color'))
-
-        styles.set('--card-background',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--dark-card-background'))
-    }
-
-    if (currentTheme === "dark") {
-        toggle.dataset.theme = "light"
-        styles.set('--bg-color',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--light-bg-color'))
-
-        styles.set('--text-color',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--light-text-color'))
-
-        styles.set('--button-colors',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--light-button-colors'))
-
-        styles.set('--crown-color',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--light-crown-color'))
-
-        styles.set('--card-background',
-            getComputedStyle(document.documentElement)
-                .getPropertyValue('--light-card-background'))
-    }
-
-    let root = document.documentElement
-
-    styles.forEach((value, key) => {
-        root.style.setProperty(key, value)
-    })
-})
-
-/***************************
  * This just grabs the user and formats the information to
  * make it easier to use
  */
@@ -196,7 +132,14 @@ function displayGames(games) {
         displayGame(game)
     })
     display.firstChild.remove()
-    gsap.from(".gameContainer", {duration: 0.5, scale: 0.9, stagger: 0.1, y: 600, ease: "expo", delay: 0.1})
+    gsap.from(".gameContainer", {
+        duration: 0.5,
+        scale: 0.9,
+        stagger: 0.1,
+        y: 600,
+        ease: "expo",
+        delay: 0.1
+    })
 }
 
 /********************
@@ -227,16 +170,14 @@ function displayGame(game) {
         // check for 12
         if (hours == 12) {
             timeString += ` ${hours}:`
-        }
-        else {
+        } else {
             hours = hours - 12
             timeString += ` ${hours}:`
         }
 
         timeString += `${date.getMinutes()}.${date.getSeconds()} PM`
 
-    }
-    else {
+    } else {
         // AM
 
         timeString += ` ${date.getHours()}:${date.getMinutes()}.${date.getSeconds()} AM`
@@ -287,13 +228,13 @@ function findWinner(teams) {
 /*********
  * Turns a object into a map
  */
-function createMap(obj) { 
-    let map = new Map() 
-    Object.keys(obj).forEach(key => { 
-        map.set(key, obj[key]) 
+function createMap(obj) {
+    let map = new Map()
+    Object.keys(obj).forEach(key => {
+        map.set(key, obj[key])
     })
     return map
-} 
+}
 
 /**************************
  * Event listener for edit button
@@ -311,8 +252,7 @@ document.getElementById("editButton").addEventListener("click", () => {
 
         // display the add new game again.
         document.getElementById("addGameButton").hidden = false;
-    }
-    else {
+    } else {
 
         document.getElementById("addGameButton").hidden = true;
         games.forEach(game => {
@@ -370,6 +310,10 @@ document.getElementById("addGameButton").addEventListener("click", () => {
     // back button
     let backButton = document.getElementById("backButton")
     backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
+
+    /********
+     * What happens when the back button is clicked
+     */
     backButton.addEventListener("click", () => {
 
         // fix some things
@@ -482,14 +426,22 @@ function playGame(gameId) {
 
 /******************************
  * displayPlayGame(game)
- * This will accept a game and display it.
+ * This will accept a game and display it all ready to play.
  */
 function displayPlayGame(game) {
-    let pageHeader = document.querySelector(".myGames")
+
+    let myGamesHeader = document.querySelector(".myGames")
+    let pageHeader = document.querySelector(".pageHeader")
     let editButton = document.getElementById("editButton")
     let addGameButton = document.getElementById("addGameButton")
     let gamesContainer = document.getElementById("game")
     let display = document.getElementById("playGame")
+    let topBar = document.getElementById("topBar")
+
+    ///////////
+    // let themeToggle = document.querySelector(".themeToggle")
+    // themeToggle.remove()
+    ///////////
 
     // Hide Everything on the screen
     display.innerHTML = ""
@@ -498,6 +450,8 @@ function displayPlayGame(game) {
     editButton.hidden = true
     addGameButton.hidden = true
     pageHeader.hidden = true
+    myGamesHeader.hidden = true
+    topBar.innerHTML = ""
 
     // Grid Container
     let container = document.createElement("div")
@@ -548,9 +502,16 @@ function displayPlayGame(game) {
             if (expand.getAttribute("data-expanded") === "true") {
                 // remove everything
                 expand.setAttribute("data-expanded", "false")
+
+                console.log("length: " + teamScoreContainer.children.length)
+
+                if (teamScoreContainer.children.length === 6) {
+                    teamScoreContainer.lastChild.remove()
+                    teamScoreContainer.lastChild.remove()
+                }
                 teamScoreContainer.lastChild.remove()
-            }
-            else {
+
+            } else {
                 expand.setAttribute("data-expanded", "true")
                 // Add input
                 let input = document.createElement("input")
@@ -558,7 +519,7 @@ function displayPlayGame(game) {
                 input.type = "number"
                 input.pattern = "[0-9]*"
                 input.placeholder = "0"
-                
+
 
                 /******* Event listener for check for changes in input field */
                 input.addEventListener("input", () => {
@@ -566,14 +527,15 @@ function displayPlayGame(game) {
                         // Ensure that the add button shows
                         if (input.getAttribute("data-showingButton") === "true") {
 
-                        }
-                        else {
+
+
+                        } else {
                             input.setAttribute("data-showingButton", "true")
                             let addButton = document.createElement("div")
                             addButton.className = "addButton"
-                            addButton.textContent = "+"
+                            addButton.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i>'
 
-                            // What happens when the changes are saved
+                            // What happens when add button is clicked
                             addButton.addEventListener("click", () => {
 
                                 let teamsUpdate = createMap(game.teams)
@@ -591,7 +553,7 @@ function displayPlayGame(game) {
 
                             let subButton = document.createElement("div")
                             subButton.className = "subButton"
-                            subButton.textContent = "-"
+                            subButton.innerHTML = '<i class="fa fa-minus" aria-hidden="true"></i>'
 
                             // What happens when the subtract button is clicked
                             subButton.addEventListener("click", () => {
@@ -612,12 +574,18 @@ function displayPlayGame(game) {
                             teamScoreContainer.appendChild(addButton)
                         }
 
-                    }
-                    else {
+                    } else {
                         // Ensure that the add button is gone
                         if (input.getAttribute("data-showingButton") === "true") {
-                            teamScoreContainer.lastChild.remove()
+                            if (teamScoreContainer.children.length === 6) {
+                                teamScoreContainer.lastChild.remove()
+                                teamScoreContainer.lastChild.remove()
+                            }
+
+                            input.setAttribute("data-showingButton", "false")
                         }
+
+                        
 
                     }
                 })
@@ -649,8 +617,15 @@ function displayPlayGame(game) {
     display.appendChild(container)
 
 
+    /*************************************************
+     * TOP BAR
+     */
+
+
     // add the backbutton
-    let backButton = document.getElementById("backButton")
+    let backButton = document.createElement("div")
+    backButton.className = "backButton"
+    backButton.id = "backButton"
     backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
     backButton.addEventListener("click", () => {
 
@@ -659,11 +634,183 @@ function displayPlayGame(game) {
         editButton.hidden = false
         addGameButton.hidden = false
         pageHeader.hidden = false
+        myGamesHeader.hidden = false
 
         // remove the back button
         backButton.innerHTML = ""
 
+        // remove the top bar
+        topBar.innerHTML = ""
+
+        // remove the settings if its there
+        document.getElementById("settingsContainer").innerHTML = ""
+
         // reload the games
         loadGames()
     })
+
+
+    topBar.appendChild(backButton)
+
+    // Text for top bar
+    let headerText = document.createElement("div")
+    headerText.classList.add("topBarHeaderText")
+    headerText.id = "topBarHeaderText"
+    headerText.textContent = "Score Games"
+
+    // Add text to top bar
+    topBar.appendChild(headerText)
+
+
+    // settings icon
+    let settingsButton = document.createElement("div")
+    settingsButton.classList.add("settingsButton")
+    settingsButton.id = "settingsButton"
+    settingsButton.innerHTML = '<i class="fas fa-cog"></i>'
+
+    settingsButton.addEventListener("click", () => {
+        // get my settings
+        let settingsContainer = document.getElementById("settingsContainer")
+
+        // check if its already up, if so remove
+        if (settingsContainer.innerHTML != "") {
+            console.log("LEAVE ME TRANSITION")
+            gsap.to('#settingsContainer', {
+                duration: 0.5,
+                x: "100%",
+                onComplete: () => { 
+                    settingsContainer.innerHTML = ""
+                    settingsContainer.style = ""
+                
+            }
+            })
+            
+            return
+        }
+        settingsContainer.innerHTMl = ""
+        settingsContainer.appendChild(createThemeToggle())
+
+        // animate the settings in
+        gsap.fromTo('#settingsContainer', {
+            duration: 0.5,
+            x: "100%"
+        }, {
+            x: "0%"
+        })
+    })
+
+    // Add the settings to top bar
+    topBar.appendChild(settingsButton)
+}
+
+
+function createThemeToggle() {
+
+    
+    
+    let toggle = document.createElement("div")
+    toggle.className = "themeToggle"
+    toggle.dataset.theme = "light"
+
+    // toggle.innerHTML = `
+    // <label class="switch">
+    //     <input type="checkbox" id="themeToggle" data-theme="light">
+    //     <span class="slider round"></span>
+    // </label>
+    // <label class="themeToggleLabel">Dark Mode</label>
+    // `
+
+    // Add the first label
+    let label = document.createElement("label")
+    label.className = "switch"
+
+    toggle.appendChild(label)
+
+    // checkBox
+    let checkBox = document.createElement("input")
+    checkBox.type = "checkbox"
+    checkBox.id = "themeToggle"
+    
+    if (getComputedStyle(document.documentElement).getPropertyValue('--dark-bg-color') === getComputedStyle(document.documentElement).getPropertyValue('--bg-color')) {
+        toggle.dataset.theme = "dark"
+        checkBox.checked = true
+    }
+
+    label.appendChild(checkBox)
+
+    // Span
+    let span = document.createElement("span")
+    span.classList.add("slider", "round")
+
+    label.appendChild(span)
+
+    // darkMode label
+    let darkModeLabel = document.createElement("label")
+    darkModeLabel.classList.add("themeToggleLabel")
+    darkModeLabel.textContent = "Dark Mode"
+
+    toggle.appendChild(darkModeLabel)
+
+    checkBox.addEventListener("click", () => {
+        
+        console.log("IN THEME TOGGLE")
+        let currentTheme = toggle.dataset.theme
+
+        let styles = new Map()
+
+        if (currentTheme === "light") {
+            toggle.dataset.theme = "dark"
+
+            styles.set('--bg-color',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-bg-color'))
+
+            styles.set('--text-color',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-text-color'))
+
+            styles.set('--button-colors',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-button-colors'))
+
+            styles.set('--crown-color',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-crown-color'))
+
+            styles.set('--card-background',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--dark-card-background'))
+        }
+
+        if (currentTheme === "dark") {
+            toggle.dataset.theme = "light"
+            styles.set('--bg-color',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-bg-color'))
+
+            styles.set('--text-color',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-text-color'))
+
+            styles.set('--button-colors',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-button-colors'))
+
+            styles.set('--crown-color',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-crown-color'))
+
+            styles.set('--card-background',
+                getComputedStyle(document.documentElement)
+                .getPropertyValue('--light-card-background'))
+        }
+
+        let root = document.documentElement
+
+        styles.forEach((value, key) => {
+            root.style.setProperty(key, value)
+        })
+    })
+
+    return toggle
 }

@@ -26,14 +26,6 @@ body {
     padding: 0px;
 }
 
-/* Back Button */
-.backButtonContainer {
-    color: var(--text-color);
-    padding: 15px;
-    padding-bottom: 0px;
-    transition: transform 0.5s ease;
-}
-
 /* CSS For theme toggle */
 .switch {
     position: relative;
@@ -103,16 +95,6 @@ body {
     text-align: center;
     padding: 20px;
     padding-top: 10px;
-}
-
-.themeToggle {
-    padding: 10px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    display: flex;
-    font-size: 14px;
-    align-items: center;
-    
 }
 
 .themeToggleLabel {
@@ -261,7 +243,10 @@ body {
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     width: 25px;
     height: 25px;
+    
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 /* Sub Button */
@@ -275,7 +260,10 @@ body {
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     width: 25px;
     height: 25px;
+
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 /* trash can div */
@@ -457,7 +445,8 @@ body {
 
 .gridGameName {
     padding: 10px;
-    text-align: center;
+    font-size: 24px;
+    text-align: left;
 }
 
 .gridTeamsContainer {
@@ -488,6 +477,7 @@ body {
 
 .gridScore {
     padding: 8px;
+    font-size: 20px;
 }
 
 .expandCardButton {
@@ -507,3 +497,51 @@ body {
     font-size: 16px;
 }
 
+/* Top navigation bar */
+.topBarContainer {
+    top: 0;
+    width: 100%;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* Back Button */
+.backButton {
+    color: var(--text-color);
+    padding: 15px;
+}
+
+/* Text on the top bar */
+.topBarHeaderText {
+    font-size: 20px;
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    font-family: 'Lexend Tera', serif;
+}
+
+/* settings icon */
+.settingsButton {
+    color: var(--text-color);
+    padding: 15px;
+}
+
+/* Container for the settings */
+.settingsContainer {
+    color: var(--text-color);
+    background-color: var(--card-background);
+    box-shadow: 0 4px 6px 0px rgba(0, 0, 0, 0.2), 0 6px 20px -20px rgba(0, 0, 0, 0.19);
+    justify-content: space-between;
+}
+
+/* The theme Toggle */
+.themeToggle {
+    padding: 10px;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    width: 200px;
+}
