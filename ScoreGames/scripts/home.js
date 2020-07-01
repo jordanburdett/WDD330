@@ -542,7 +542,7 @@ function displayPlayGame(game) {
         expand.innerHTML = '<i class="fas fa-chevron-down"></i>'
 
         /**** Event listener for expanding a team */
-        teamScoreContainer.addEventListener("click", () => {
+        expand.addEventListener("click", () => {
             expand.classList.toggle("spin90")
 
             if (expand.getAttribute("data-expanded") === "true") {
