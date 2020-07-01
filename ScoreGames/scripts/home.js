@@ -133,12 +133,13 @@ function displayGames(games) {
     })
     display.firstChild.remove()
     gsap.from(".gameContainer", {
-        duration: 0.5,
+        duration: 0.8,
         scale: 0.9,
         stagger: 0.1,
-        y: 600,
-        ease: "expo",
-        delay: 0.1
+        skewX: 15,
+        y: 510,
+        x: 200,
+        ease: "expo"
     })
 }
 
@@ -263,8 +264,8 @@ document.getElementById("editButton").addEventListener("click", () => {
             trashCan.innerHTML = '<i class="fas fa-trash"></i>'
 
             // What happens when the delete button is clicked.
-            trashCan.addEventListener("click", () => {
-
+            trashCan.addEventListener("click", (event) => {
+                event.stopPropagation();
                 let gameId = game.id
                 let userInfo = getUserInfo()
 
