@@ -542,7 +542,7 @@ function displayPlayGame(game) {
         expand.innerHTML = '<i class="fas fa-chevron-down"></i>'
 
         /**** Event listener for expanding a team */
-        expand.addEventListener("click", () => {
+        teamScoreContainer.addEventListener("click", () => {
             expand.classList.toggle("spin90")
 
             if (expand.getAttribute("data-expanded") === "true") {
@@ -558,6 +558,7 @@ function displayPlayGame(game) {
                 input.type = "number"
                 input.pattern = "[0-9]*"
                 input.placeholder = "0"
+                input.autofocus = true
 
                 /******* Event listener for check for changes in input field */
                 input.addEventListener("input", () => {
