@@ -439,6 +439,7 @@ body {
     width: 100%;
     margin: auto;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .gridContainer {
@@ -550,4 +551,35 @@ body {
     font-size: 14px;
     align-items: center;
     width: 200px;
+}
+
+/* Game Code option */
+.gameCode {
+    padding: 15px;
+    margin-top: 100px;
+}
+
+.gameCodeButton {
+    background-color: var(--button-colors);
+}
+
+.gameCodeText {
+    padding: 15px;
+    font-size: 16px;
+    font-family: 'Lexend Tera', serif;
+}
+
+.gameCodeInputLabel, .gameCodeInputLabel:focus {
+    padding: 5px;
+    align-self: center;
+    font-family: 'Lexend Tera', serif;
+    
+}
+
+.gameCodeSaveButton {
+    margin: 10px;
+}
+
+*:focus {
+    outline: none;
 }

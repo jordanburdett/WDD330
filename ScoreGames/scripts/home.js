@@ -392,8 +392,7 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
 
         document.getElementById("gameNameInput").style.setProperty("border", "1px solid red")
         return
-    }
-    else {
+    } else {
         document.getElementById("gameNameInput").style.setProperty("border", "1px solid lightgreen")
     }
 
@@ -402,15 +401,14 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
 
         document.getElementById("newTeamInput").style.setProperty("border", "1px solid red")
         return
-    }
-    else {  
+    } else {
         document.getElementById("newTeamInput").style.setProperty("border", "1px solid lightgreen")
     }
 
 
 
 
-     /* End of error handling */
+    /* End of error handling */
 
     teams = {}
     teamsHTML.forEach(team => {
@@ -426,7 +424,7 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
         name: gameName,
         teams: teams,
         date: date,
-        history: [],
+        history: []
     })
 
     let addGame = {}
@@ -626,7 +624,7 @@ function displayPlayGame(game) {
                             input.setAttribute("data-showingButton", "false")
                         }
 
-                        
+
 
                     }
                 })
@@ -670,6 +668,7 @@ function displayPlayGame(game) {
     backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
     backButton.addEventListener("click", () => {
 
+        // New Game workarounds
         if (newGame) {
 
             // refresh the page
@@ -726,13 +725,13 @@ function displayPlayGame(game) {
             gsap.to('#settingsContainer', {
                 duration: 0.5,
                 x: "100%",
-                onComplete: () => { 
+                onComplete: () => {
                     settingsContainer.innerHTML = ""
                     settingsContainer.style = ""
-                
-            }
+
+                }
             })
-            
+
             return
         }
         settingsContainer.innerHTMl = ""
@@ -749,13 +748,132 @@ function displayPlayGame(game) {
 
     // Add the settings to top bar
     topBar.appendChild(settingsButton)
+
+
+    // Game code option for the bottom
+    let gameCode = document.createElement("div")
+    gameCode.id = "gameCode"
+
+
+    // Last thing we want to check to see if the game has a gamecode
+    database.ref('GameCodes/' + game.id).once("value").then(snapshot => {
+
+        if (snapshot.val()) {
+
+            let value = snapshot.val()
+            console.log(value)
+
+            console.log("code for this game")
+            gameCode.className = "gameCode"
+
+            gameCode.innerHTML = "Game code is &quot" + value.code + "&quot"
+
+
+        } else {
+
+
+            console.log("No code for this game.....")
+            gameCode.textContent = "Add Game Code?"
+            gameCode.className = "gameCode editButton gameCodeButton"
+
+            gameCode.addEventListener("click", () => {
+                // remove button
+                display.lastChild.remove()
+
+                // create an element explaining what the game code does
+                let gameCodeExplain = document.createElement("p")
+                gameCodeExplain.className = "gameCodeText"
+                gameCodeExplain.textContent = "Adding a game code allows others to easily add this game."
+
+                // add the element
+                display.appendChild(gameCodeExplain)
+
+                // create label for input
+                let gameCodeInputLabel = document.createElement("label")
+                gameCodeInputLabel.for = "gameCodeInput"
+                gameCodeInputLabel.className = "gameCodeInputLabel"
+                gameCodeInputLabel.textContent = "Game Code:"
+
+                // add label
+                display.appendChild(gameCodeInputLabel)
+
+                // create an input field to enter in the game code
+                let gameCodeInput = document.createElement("input")
+                gameCodeInput.className = "formTextInput"
+                gameCodeInput.id = "gameCodeInput"
+                gameCodeInput.name = "gameCodeInput"
+                gameCodeInput.placeholder = "add game code here"
+
+                // When the input changes lets see if its valid
+                gameCodeInput.addEventListener("input", () => {
+                    console.log(gameCodeInput.value)
+
+                    database.ref("GameCodes/").orderByChild("code")
+                        .equalTo(gameCodeInput.value)
+                        .on("value", snapshot => {
+                            console.log(snapshot.val())
+
+                            if (snapshot.val()) {
+                                // sorry taken
+                                gameCodeInput.style.setProperty("border", "solid red 1px")
+                            } else {
+                                // Good to go
+                                gameCodeInput.style.setProperty("border", "solid green 1px")
+                            }
+                        })
+                })
+
+                // add the game code input
+                display.appendChild(gameCodeInput)
+
+                // create a save button with event listener to add the game code
+                let gameCodeSaveButton = document.createElement("div")
+                gameCodeSaveButton.className = "editButton gameCodeButton gameCodeSaveButton"
+                gameCodeSaveButton.textContent = "Add Code"
+                gameCodeSaveButton.addEventListener("click", () => {
+                    // check that the code hasn't been taken
+                    database.ref("GameCodes/").orderByChild("code")
+                        .equalTo(gameCodeInput.value)
+                        .on("value", snapshot => {
+                            console.log(snapshot.val())
+
+                            if (snapshot.val()) {
+                                // sorry taken // MORE ERROR HANDLING SHOULD BE ADDED HERE! TODO
+                                gameCodeInput.style.setProperty("border", "solid red 3px")
+                                return
+                            } else {
+                                // Good to go
+                                gameCodeInput.style.setProperty("border", "solid green 1px")
+                                // add gamecode to the database
+                                database.ref('GameCodes/' + game.id).set({
+                                    code: gameCodeInput.value
+                                })
+
+                                // reload game calling displayPlayGame(game)
+                                displayPlayGame(game)
+                            }
+                        })
+
+
+                })
+
+                // add game code save button
+                display.appendChild(gameCodeSaveButton)
+            })
+        }
+
+
+
+        display.appendChild(gameCode)
+    })
+
 }
 
 
 function createThemeToggle() {
 
-    
-    
+
+
     let toggle = document.createElement("div")
     toggle.className = "themeToggle"
     toggle.dataset.theme = "light"
@@ -778,7 +896,7 @@ function createThemeToggle() {
     let checkBox = document.createElement("input")
     checkBox.type = "checkbox"
     checkBox.id = "themeToggle"
-    
+
     if (getComputedStyle(document.documentElement).getPropertyValue('--dark-bg-color') === getComputedStyle(document.documentElement).getPropertyValue('--bg-color')) {
         toggle.dataset.theme = "dark"
         checkBox.checked = true
@@ -800,7 +918,7 @@ function createThemeToggle() {
     toggle.appendChild(darkModeLabel)
 
     checkBox.addEventListener("click", () => {
-        
+
         console.log("IN THEME TOGGLE")
         let currentTheme = toggle.dataset.theme
 
