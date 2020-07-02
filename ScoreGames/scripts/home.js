@@ -14,6 +14,9 @@ firebase.analytics();
 var database = firebase.database()
 var auth = firebase.auth()
 
+// Workaround for gamees not loading
+var newGame = false
+
 // References to database... Active watches basically.
 var references = []
 
@@ -430,6 +433,10 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
     addGame[newPostKey] = true
     database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
 
+
+        // New Game workaround
+        newGame = true
+
         document.querySelector(".backButton").remove()
         playGame(newPostKey)
 
@@ -662,6 +669,13 @@ function displayPlayGame(game) {
     backButton.id = "backButton"
     backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
     backButton.addEventListener("click", () => {
+
+        if (newGame) {
+
+            // refresh the page
+            location.reload()
+        }
+
 
         // fix some things
         display.innerHTML = ""
