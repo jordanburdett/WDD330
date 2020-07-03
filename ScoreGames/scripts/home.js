@@ -505,6 +505,15 @@ document.getElementById("newTeamInput").addEventListener("keydown", (e) => {
     }
 })
 
+/********************************
+ * Event listener for hitting enter when game name has focus
+ */
+document.getElementById("gameNameInput").addEventListener("keydown", (e) => {
+    if (e.which == 13) {
+        document.getElementById("newTeamInput").focus
+    }
+})
+
 /*****************************
  * Event listener for adding the new game
  */
