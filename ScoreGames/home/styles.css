@@ -583,3 +583,10 @@ body {
 *:focus {
     outline: none;
 }
+
+.errorText {
+    color: rgb(226, 78, 78);
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}

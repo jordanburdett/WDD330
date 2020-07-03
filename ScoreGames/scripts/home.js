@@ -788,6 +788,14 @@ function displayPlayGame(game) {
                 // add the element
                 display.appendChild(gameCodeExplain)
 
+                // create a field for errors to be displayed
+                let gameCodeError = document.createElement("div")
+                gameCodeError.className = "errorText"
+                gameCodeError.id = "gameCodeError"
+
+                // add the element
+                display.appendChild(gameCodeError)
+
                 // create label for input
                 let gameCodeInputLabel = document.createElement("label")
                 gameCodeInputLabel.for = "gameCodeInput"
@@ -815,10 +823,12 @@ function displayPlayGame(game) {
 
                             if (snapshot.val()) {
                                 // sorry taken
-                                gameCodeInput.style.setProperty("border", "solid red 1px")
+                                gameCodeError.textContent = "Code Unavailable"
+                                gameCodeInput.style.setProperty("border", "solid red 2px")
                             } else {
                                 // Good to go
-                                gameCodeInput.style.setProperty("border", "solid green 1px")
+                                gameCodeError.textContent = ""
+                                gameCodeInput.style.setProperty("border", "solid green 2px")
                             }
                         })
                 })
@@ -838,12 +848,14 @@ function displayPlayGame(game) {
                             console.log(snapshot.val())
 
                             if (snapshot.val()) {
-                                // sorry taken // MORE ERROR HANDLING SHOULD BE ADDED HERE! TODO
+                                // sorry taken
+
+                                gameCodeError.textContent = "Code Unavailable"
                                 gameCodeInput.style.setProperty("border", "solid red 3px")
                                 return
                             } else {
                                 // Good to go
-                                gameCodeInput.style.setProperty("border", "solid green 1px")
+                                gameCodeInput.style.setProperty("border", "solid green 2px")
                                 // add gamecode to the database
                                 database.ref('GameCodes/' + game.id).set({
                                     code: gameCodeInput.value
