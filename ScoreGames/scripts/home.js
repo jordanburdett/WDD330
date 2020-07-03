@@ -452,6 +452,8 @@ document.getElementById("addGameButton").addEventListener("click", () => {
     // show form for creating new Game
     form.classList.toggle("newGame")
     form.classList.toggle("hidden")
+
+    document.querySelector("#gameNameInput").focus()
 })
 
 
@@ -461,6 +463,13 @@ document.getElementById("addGameButton").addEventListener("click", () => {
 document.getElementById("addTeamButton").addEventListener("click", () => {
     let inputField = document.getElementById("newTeamInput")
     let teamDisplay = document.getElementById("newTeamDisplay")
+
+    // Error handling
+    if (inputField.value == "") {
+        // TODO add some text telling why
+        inputField.setAttribute("border", "solid red 1px")
+        return
+    }
 
 
     let team = document.createElement("div")
@@ -482,8 +491,18 @@ document.getElementById("addTeamButton").addEventListener("click", () => {
     team.appendChild(trashCan)
 
     inputField.value = ""
+    inputField.focus()
 
     teamDisplay.appendChild(team)
+})
+
+/******************************
+ * Event listener for hitting enter when team input has focus
+ */
+document.getElementById("newTeamInput").addEventListener("keydown", (e) => {
+    if (e.which == 13) {
+        document.getElementById("addTeamButton").click()
+    }
 })
 
 /*****************************
@@ -937,6 +956,9 @@ function displayPlayGame(game) {
 
                 // add the game code input
                 display.appendChild(gameCodeInput)
+
+                // change focus
+                gameCodeInput.focus()
 
                 // create a save button with event listener to add the game code
                 let gameCodeSaveButton = document.createElement("div")
