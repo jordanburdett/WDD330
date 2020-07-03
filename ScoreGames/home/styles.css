@@ -94,7 +94,6 @@ body {
     font-size: 28px;
     text-align: center;
     padding: 20px;
-    padding-top: 10px;
 }
 
 .themeToggleLabel {
@@ -597,4 +596,10 @@ body {
     background-color: var(--button-colors);
     font-family: 'Lexend Tera', serif;
     
+}
+
+.text {
+    padding: 10px;
+    font-family: 'Lexend Tera', serif;
+    color: var(--text-color);
 }

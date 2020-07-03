@@ -14,11 +14,15 @@ firebase.analytics();
 var database = firebase.database()
 var auth = firebase.auth()
 
-// Workaround for gamees not loading
-var newGame = false
-
 // References to database... Active watches basically.
 var references = []
+
+// html builder class.
+import {
+    HTMLBuilder
+} from "./HTMLBuilder.js"
+var htmlBuilder = new HTMLBuilder()
+
 
 /***************
  * This function will make sure I am logged in and then update some settings
@@ -56,7 +60,6 @@ firebase.auth().onAuthStateChanged(function (user) {
  */
 function getUserInfo() {
     var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid, emailVerified;
 
     if (user != null) {
         let userInfo = {
@@ -83,7 +86,7 @@ function loadGames() {
 
     // get a list of games from the user profile if no games return
     database.ref(`Users/${userInfo.uid}/games`).once('value').then(async (snapshot) => {
-        if (snapshot) {
+        if (snapshot.val()) {
 
 
             let games = []
@@ -93,20 +96,22 @@ function loadGames() {
                 keys.push(id.key)
             })
 
-            for (key in keys) {
+            for (let key in keys) {
                 let game = await getGameFromFirebase(keys[key])
                 games.push(game)
             }
 
             //Display all the games
             displayGames(games)
-        }
-        /// WE HAVE NO GAMES TODO DISPLAY CREATE NEW GAME DIALOG OR ENTER GAME CODE
-        return
-    })
-    // get game name and the game date 
+        } else {
+            // No games... Lets display something
+            let display = document.querySelector("#game")
 
-    // display the list of games
+            display.appendChild(
+                htmlBuilder.createTextElement("You currently have no games... Start one by clicking the + icon below!")
+            )
+        }
+    })
 }
 
 /*******************
@@ -360,7 +365,7 @@ document.getElementById("addGameButton").addEventListener("click", () => {
         // add add button
         let addGameButton = document.createElement("div")
         addGameButton.className = "editButton smallButton"
-        addGameButton.id="addGameByCodeButton"
+        addGameButton.id = "addGameByCodeButton"
         addGameButton.textContent = "Add Game"
 
         display.appendChild(addGameButton)
@@ -378,40 +383,38 @@ document.getElementById("addGameButton").addEventListener("click", () => {
                         // Hey there is something here!
                         let data = snapshot.val()
                         let key = snapshot.node_.children_.root_.key
-                        
+
+                        // remove anything that needs removing!
+
+                        // remove the back button
+                        backButton.remove()
+
+                        errorText.remove()
+                        label.remove()
+                        inputCode.remove()
+                        addGameButton.remove()
+
+                        // add the game id to user account
+                        let userInfo = getUserInfo()
+
+                        let addGame = {}
+                        addGame[key] = true
+                        database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
+                            console.log("game added to account")
+                        })
+
+
                         getGameFromFirebase(key).then(game => {
 
                             // display the game
                             displayPlayGame(game)
-
-                            // remove anything that needs removing!
-
-                            // remove the back button
-                            backButton.remove()
-
-                            errorText.remove()
-                            label.remove()
-                            inputCode.remove()
-                            addGameButton.remove()
-
-                            // work around
-                            newGame = true
-
-
-                            // add the game id to user account
-                            let userInfo = getUserInfo()
-
-                            let addGame = {}
-                             addGame[key] = true
-                            database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
-                                console.log("game added to account")
-                            })
-
-
-
                         })
 
-                        
+                        database.ref('games/' + key).on("value", snapshot => {
+                            displayPlayGame(snapshot.val())
+                        })
+
+
                     } else {
                         // Nothing here....
                         errorText.textContent = "Invalid Code..."
@@ -520,7 +523,7 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
 
     /* End of error handling */
 
-    teams = {}
+    let teams = {}
     teamsHTML.forEach(team => {
         teams[team.textContent] = 0
     })
@@ -540,10 +543,6 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
     let addGame = {}
     addGame[newPostKey] = true
     database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
-
-
-        // New Game workaround
-        newGame = true
 
         document.querySelector(".backButton").remove()
         playGame(newPostKey)
@@ -776,22 +775,15 @@ function displayPlayGame(game) {
     backButton.className = "backButton"
     backButton.id = "backButton"
     backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
+
     backButton.addEventListener("click", () => {
-
-        // New Game workarounds
-        if (newGame) {
-
-            // refresh the page
-            location.reload()
-        }
-
-
         // fix some things
         display.innerHTML = ""
         editButton.hidden = false
         addGameButton.hidden = false
         pageHeader.hidden = false
         myGamesHeader.hidden = false
+        gamesContainer.hidden = false
 
         // remove the back button
         backButton.innerHTML = ""
