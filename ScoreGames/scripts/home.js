@@ -317,6 +317,116 @@ document.getElementById("addGameButton").addEventListener("click", () => {
     backButton.innerHTML = '<i class="fas fa-arrow-left"></i>'
 
     document.querySelector("body").insertBefore(backButton, document.querySelector("body").firstChild)
+
+    // Button for add game by code
+    let addGameByCode = document.createElement("div")
+    addGameByCode.className = "editButton smallButton"
+    addGameByCode.id = "addGameByCodeButton"
+    addGameByCode.textContent = "Add by Game Code"
+
+    document.querySelector("main").insertBefore(addGameByCode, document.querySelector(".myGamesAndsettContainer"))
+
+    /* What happens when the add by game code button is pressed */
+    addGameByCode.addEventListener("click", () => {
+        // remove everything
+        form.className = "hidden"
+        pageHeader.textContent = "Add by Code"
+        addGameByCode.remove()
+
+        // add everything!
+        let display = document.querySelector("main")
+
+        // Error display
+        let errorText = document.createElement("div")
+        errorText.className = "errorText"
+
+        display.appendChild(errorText)
+
+        // add Label
+        let label = document.createElement("label")
+        label.for = "inputCode"
+        label.className = "gameCodeInputLabel"
+        label.textContent = "Game Code: "
+
+        display.appendChild(label)
+
+        // add input
+        let inputCode = document.createElement("input")
+        inputCode.name = "inputCode"
+        inputCode.id = "inputCode"
+
+        display.appendChild(inputCode)
+
+        // add add button
+        let addGameButton = document.createElement("div")
+        addGameButton.className = "editButton smallButton"
+        addGameButton.textContent = "Add Game"
+
+        display.appendChild(addGameButton)
+
+        /* What happens when the add game button is pressed */
+        addGameButton.addEventListener("click", () => {
+            // add game to account and start playing
+
+            database.ref("GameCodes/").orderByChild("code")
+                .equalTo(inputCode.value)
+                .on("value", snapshot => {
+                    console.log(snapshot.val())
+
+                    if (snapshot.val()) {
+                        // Hey there is something here!
+                        let data = snapshot.val()
+                        let key = snapshot.node_.children_.root_.key
+                        
+                        getGameFromFirebase(key).then(game => {
+
+                            // display the game
+                            displayPlayGame(game)
+
+                            // remove anything that needs removing!
+
+                            // remove the back button
+                            backButton.remove()
+
+                            errorText.remove()
+                            label.remove()
+                            inputCode.remove()
+                            addGameButton.remove()
+
+                            // work around
+                            newGame = true
+
+
+                            // add the game id to user account
+                            let userInfo = getUserInfo()
+
+                            let addGame = {}
+                             addGame[key] = true
+                            database.ref(`Users/${userInfo.uid}/games`).update(addGame, () => {
+                                console.log("game added to account")
+                            })
+
+
+
+                        })
+
+                        
+                    } else {
+                        // Nothing here....
+                        errorText.textContent = "Invalid Code..."
+                    }
+                })
+
+
+
+
+
+        })
+
+    })
+
+
+
     /********
      * What happens when the back button is clicked
      */
@@ -328,6 +438,9 @@ document.getElementById("addGameButton").addEventListener("click", () => {
         addGameButton.hidden = false
         gamesContainer.hidden = false
 
+        // remove add game by code button
+        addGameByCode.remove()
+
         form.className = "hidden"
 
         // remove the back button
@@ -336,6 +449,7 @@ document.getElementById("addGameButton").addEventListener("click", () => {
         // reload the games
         loadGames()
     })
+
 
     // show form for creating new Game
     form.classList.toggle("newGame")
