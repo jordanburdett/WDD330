@@ -360,6 +360,7 @@ document.getElementById("addGameButton").addEventListener("click", () => {
         // add add button
         let addGameButton = document.createElement("div")
         addGameButton.className = "editButton smallButton"
+        addGameButton.id="addGameByCodeButton"
         addGameButton.textContent = "Add Game"
 
         display.appendChild(addGameButton)
@@ -416,13 +417,7 @@ document.getElementById("addGameButton").addEventListener("click", () => {
                         errorText.textContent = "Invalid Code..."
                     }
                 })
-
-
-
-
-
         })
-
     })
 
 
@@ -497,6 +492,7 @@ document.getElementById("addNewGameFormButton").addEventListener("click", () => 
     let date = Date.now()
     let userInfo = getUserInfo()
 
+    document.querySelector("#addGameByCodeButton").remove()
 
     /***************************
      * ERROR HANDLING
