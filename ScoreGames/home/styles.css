@@ -451,12 +451,11 @@ body {
 
 .gridGameName {
     padding: 10px;
-    font-size: 24px;
+    font-size: 26px;
     text-align: left;
 }
 
 .gridTeamsContainer {
-
     display: flex;  
     flex-wrap: wrap;
     justify-content: center;
@@ -465,7 +464,7 @@ body {
 .gridTeamScoreContainer {
     margin: 10px;
     padding: 10px;
-    max-width: 122px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -475,15 +474,14 @@ body {
 }
 
 .gridTeam {
-    margin-bottom: 10px;
     width: 100%;
     overflow: scroll;
-    font-size: 16px;
+    font-size: 18px;
+    text-align: left;
 }
 
 .gridScore {
-    padding: 8px;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .expandCardButton {
@@ -501,6 +499,29 @@ body {
     width: 100%;
     margin: auto;
     font-size: 16px;
+}
+
+.historyLabel {
+    text-align: left;
+    width: 100%;
+}
+
+.historyContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    justify-content: center;
+    max-height: 165px;
+}
+
+.scoreItem {
+    padding: 10px;
+    margin: 5px;
+    height: 25px;
+    width: 50px;
+    background-color: var(--bg-color);
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
 }
 
 /* Top navigation bar */

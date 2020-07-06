@@ -141,11 +141,10 @@ function displayGames(games) {
     })
     display.firstChild.remove()
     gsap.from(".gameContainer", {
-        duration: 0.8,
-        scale: 0.9,
-        stagger: 0.1,
+        duration: 0.5,
+        stagger: 0.2,
         skewX: 15,
-        y: 510,
+        y: 550,
         x: 200,
         ease: "expo"
     })
@@ -510,7 +509,7 @@ document.getElementById("newTeamInput").addEventListener("keydown", (e) => {
  */
 document.getElementById("gameNameInput").addEventListener("keydown", (e) => {
     if (e.which == 13) {
-        document.getElementById("newTeamInput").focus
+        document.getElementById("newTeamInput").focus()
     }
 })
 
@@ -689,6 +688,38 @@ function displayPlayGame(game) {
 
             } else {
                 expand.setAttribute("data-expanded", "true")
+
+                /* History */
+                if (game.history[key]) {
+
+                    let historyText = htmlBuilder.createTextElement("History", "", "historyLabel")
+
+                    
+
+
+                    let historyContainer = document.createElement("div")
+                    historyContainer.id = "key" + "historyContainer"
+                    historyContainer.className = "historyContainer"
+
+                    game.history[key].forEach(score => {
+                        let scoreItem = document.createElement("div")
+                        scoreItem.textContent = score
+                        scoreItem.className = "scoreItem"
+
+                        historyContainer.appendChild(scoreItem)
+                    })
+
+                    // add text
+                    teamScoreContainer.appendChild(historyText)
+
+                    // add history to container
+                    teamScoreContainer.appendChild(historyContainer)
+                }
+
+
+
+
+
                 // Add input
                 let input = document.createElement("input")
                 input.className = "teamInputScore"
@@ -714,13 +745,55 @@ function displayPlayGame(game) {
                             // What happens when add button is clicked
                             addButton.addEventListener("click", () => {
 
+                                // key = team name
+
                                 let teamsUpdate = createMap(game.teams)
                                 teamsUpdate.set(key, Number(value) + Number(input.value))
 
-                                console.log(Object.fromEntries(teamsUpdate))
+
+                                /* History */
+                                let historyUpdate = new Map()
+
+                                // no history yet
+                                if (!game.history) {
+
+                                    historyUpdate.set(key, {
+                                        0: "+" + input.value
+                                    })
+                                }
+                                // we have history
+                                else {
+                                    historyUpdate = createMap(game.history)
+                                    
+
+                                    // quick check to see if a team has had a history
+                                    if (game.history[key]) {
+                                        // add another score here
+                                        console.log("team has history")
+
+                                        let teamHistoryUpdate = createMap(game.history[key])
+                                        teamHistoryUpdate.set(teamHistoryUpdate.size, "+" + input.value)
+
+                                        historyUpdate.set(key, Object.fromEntries(teamHistoryUpdate))
+                                    } else {
+
+                                        // add a score for the first time
+                                        console.log("team doesn't have history")
+
+                                        historyUpdate = createMap(game.history)
+                                        historyUpdate.set(key, {
+                                            0: "+" + input.value
+                                        })
+                                    }
+                                }
+
+                                /* End of History */
+
+                                console.log(Object.fromEntries(historyUpdate))
                                 let updates = {
                                     date: Date.now(),
-                                    teams: Object.fromEntries(teamsUpdate)
+                                    teams: Object.fromEntries(teamsUpdate),
+                                    history: Object.fromEntries(historyUpdate)
                                 }
 
                                 database.ref("games/" + game.id).update(updates)
@@ -736,10 +809,49 @@ function displayPlayGame(game) {
                                 let teamsUpdate = createMap(game.teams)
                                 teamsUpdate.set(key, Number(value) - Number(input.value))
 
+                                 /* History */
+                                 let historyUpdate = new Map()
+
+                                 // no history yet
+                                 if (!game.history) {
+ 
+                                     historyUpdate.set(key, {
+                                         0: "-" + input.value
+                                     })
+                                 }
+                                 // we have history
+                                 else {
+                                     historyUpdate = createMap(game.history)
+                                     
+ 
+                                     // quick check to see if a team has had a history
+                                     if (game.history[key]) {
+                                         // add another score here
+                                         console.log("team has history")
+ 
+                                         let teamHistoryUpdate = createMap(game.history[key])
+                                         teamHistoryUpdate.set(teamHistoryUpdate.size, "-" + input.value)
+ 
+                                         historyUpdate.set(key, Object.fromEntries(teamHistoryUpdate))
+                                     } else {
+ 
+                                         // add a score for the first time
+                                         console.log("team doesn't have history")
+ 
+                                         historyUpdate = createMap(game.history)
+                                         historyUpdate.set(key, {
+                                             0: "-" + input.value
+                                         })
+                                     }
+                                 }
+ 
+                                 /* End of History */
+
                                 console.log(Object.fromEntries(teamsUpdate))
                                 let updates = {
                                     date: Date.now(),
-                                    teams: Object.fromEntries(teamsUpdate)
+                                    teams: Object.fromEntries(teamsUpdate),
+                                    history: Object.fromEntries(historyUpdate)
                                 }
 
                                 database.ref("games/" + game.id).update(updates)
@@ -753,7 +865,11 @@ function displayPlayGame(game) {
                     } else {
                         // Ensure that the add button is gone
                         if (input.getAttribute("data-showingButton") === "true") {
-                            if (teamScoreContainer.children.length === 6) {
+
+                            if (game.history) {
+                                historyContainer.remove()
+                            }
+                            if (teamScoreContainer.children.length >= 6) {
                                 teamScoreContainer.lastChild.remove()
                                 teamScoreContainer.lastChild.remove()
                             }
@@ -870,7 +986,7 @@ function displayPlayGame(game) {
         // animate the settings in
         gsap.fromTo('#settingsContainer', {
             duration: 0.5,
-            x: "100%"
+            x: "150%"
         }, {
             x: "0%"
         })
@@ -891,9 +1007,6 @@ function displayPlayGame(game) {
         if (snapshot.val()) {
 
             let value = snapshot.val()
-            console.log(value)
-
-            console.log("code for this game")
             gameCode.className = "gameCode"
 
             gameCode.innerHTML = "Game code is &quot" + value.code + "&quot"
