@@ -689,37 +689,6 @@ function displayPlayGame(game) {
             } else {
                 expand.setAttribute("data-expanded", "true")
 
-                /* History */
-                if (game.history[key]) {
-
-                    let historyText = htmlBuilder.createTextElement("History", "", "historyLabel")
-
-                    
-
-
-                    let historyContainer = document.createElement("div")
-                    historyContainer.id = "key" + "historyContainer"
-                    historyContainer.className = "historyContainer"
-
-                    game.history[key].forEach(score => {
-                        let scoreItem = document.createElement("div")
-                        scoreItem.textContent = score
-                        scoreItem.className = "scoreItem"
-
-                        historyContainer.appendChild(scoreItem)
-                    })
-
-                    // add text
-                    teamScoreContainer.appendChild(historyText)
-
-                    // add history to container
-                    teamScoreContainer.appendChild(historyContainer)
-                }
-
-
-
-
-
                 // Add input
                 let input = document.createElement("input")
                 input.className = "teamInputScore"
@@ -881,9 +850,36 @@ function displayPlayGame(game) {
 
                     }
                 })
-
+                
                 teamScoreContainer.appendChild(input)
 
+                 /* History */
+                 if (game.history[key]) {
+
+                    let historyText = htmlBuilder.createTextElement("History", "", "historyLabel")
+
+                    
+
+
+                    let historyContainer = document.createElement("div")
+                    historyContainer.id = "key" + "historyContainer"
+                    historyContainer.className = "historyContainer"
+
+                    game.history[key].forEach(score => {
+                        let scoreItem = document.createElement("div")
+                        scoreItem.textContent = score
+                        scoreItem.className = "scoreItem"
+
+                        historyContainer.appendChild(scoreItem)
+                    })
+
+                    // add text
+                    teamScoreContainer.appendChild(historyText)
+
+                    // add history to container
+                    teamScoreContainer.appendChild(historyContainer)
+                }
+                
                 input.focus()
                 // Add buttons text input for putting in the correct amount of points
             }
