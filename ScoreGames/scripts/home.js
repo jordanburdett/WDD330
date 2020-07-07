@@ -858,19 +858,27 @@ function displayPlayGame(game) {
 
                     let historyText = htmlBuilder.createTextElement("History", "", "historyLabel")
 
-                    
-
-
                     let historyContainer = document.createElement("div")
                     historyContainer.id = "key" + "historyContainer"
                     historyContainer.className = "historyContainer"
 
-                    game.history[key].forEach(score => {
+                    game.history[key].forEach((score, round) => {
+
+                        let scoreRoundContainer = document.createElement("div")
+                        scoreRoundContainer.className = "scoreRoundContainer"
+
                         let scoreItem = document.createElement("div")
                         scoreItem.textContent = score
                         scoreItem.className = "scoreItem"
 
-                        historyContainer.appendChild(scoreItem)
+                        let roundNumber = document.createElement("div")
+                        roundNumber.textContent = round + 1
+                        roundNumber.className = "roundNumber"
+
+                        scoreRoundContainer.appendChild(roundNumber)
+                        scoreRoundContainer.appendChild(scoreItem)
+
+                        historyContainer.appendChild(scoreRoundContainer)
                     })
 
                     // add text
