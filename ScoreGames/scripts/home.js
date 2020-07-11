@@ -100,7 +100,18 @@ function loadGames() {
                 let game = await getGameFromFirebase(keys[key])
                 games.push(game)
             }
+            console.log("Before")
+            console.log(games)
+            
+            // sort the games
+            games.sort((game, game1) => {
+                return game.date - game1.date
+            })
 
+            // reverse array cause I don't wanna figure out the sort function right now.
+            games.reverse()
+
+            console.log(games)
             //Display all the games
             displayGames(games)
         } else {
