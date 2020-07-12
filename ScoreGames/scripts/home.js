@@ -100,8 +100,6 @@ function loadGames() {
                 let game = await getGameFromFirebase(keys[key])
                 games.push(game)
             }
-            console.log("Before")
-            console.log(games)
             
             // sort the games
             games.sort((game, game1) => {
@@ -111,7 +109,6 @@ function loadGames() {
             // reverse array cause I don't wanna figure out the sort function right now.
             games.reverse()
 
-            console.log(games)
             //Display all the games
             displayGames(games)
         } else {
@@ -147,7 +144,6 @@ function displayGames(games) {
     display.innerHTML = "<div class='loading'>loading</div>"
 
     games.forEach(game => {
-        console.log(game + "   HERE")
         displayGame(game)
     })
     display.firstChild.remove()
@@ -232,9 +228,6 @@ function findWinner(teams) {
     let score = 0
     let winnerName = "Winner"
     teams.forEach((value, key) => {
-        console.log(value)
-        console.log(key)
-
         if (value > score) {
             winnerName = key
             score = value
@@ -657,6 +650,10 @@ function displayPlayGame(game) {
     teamContainer.className = "gridTeamsContainer"
 
     let teams = createMap(game.teams)
+    teams = new Map([...teams.entries()].sort((a, b) => {
+        return b[1] - a[1]
+    }))
+   
     // Create the Teams in the container
     teams.forEach((value, key) => {
 
@@ -689,8 +686,6 @@ function displayPlayGame(game) {
                 // remove everything
                 expand.setAttribute("data-expanded", "false")
 
-                console.log("length: " + teamScoreContainer.children.length)
-
                 if (teamScoreContainer.children.length === 6) {
                     teamScoreContainer.lastChild.remove()
                     teamScoreContainer.lastChild.remove()
@@ -720,6 +715,7 @@ function displayPlayGame(game) {
                             input.setAttribute("data-showingButton", "true")
                             let addButton = document.createElement("div")
                             addButton.className = "addButton"
+                            addButton.id = "addButton"
                             addButton.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i>'
 
                             // What happens when add button is clicked
@@ -749,7 +745,6 @@ function displayPlayGame(game) {
                                     // quick check to see if a team has had a history
                                     if (game.history[key]) {
                                         // add another score here
-                                        console.log("team has history")
 
                                         let teamHistoryUpdate = createMap(game.history[key])
                                         teamHistoryUpdate.set(teamHistoryUpdate.size, "+" + input.value)
@@ -758,8 +753,6 @@ function displayPlayGame(game) {
                                     } else {
 
                                         // add a score for the first time
-                                        console.log("team doesn't have history")
-
                                         historyUpdate = createMap(game.history)
                                         historyUpdate.set(key, {
                                             0: "+" + input.value
@@ -768,8 +761,6 @@ function displayPlayGame(game) {
                                 }
 
                                 /* End of History */
-
-                                console.log(Object.fromEntries(historyUpdate))
                                 let updates = {
                                     date: Date.now(),
                                     teams: Object.fromEntries(teamsUpdate),
@@ -782,6 +773,7 @@ function displayPlayGame(game) {
 
                             let subButton = document.createElement("div")
                             subButton.className = "subButton"
+                            subButton.id = "subButton"
                             subButton.innerHTML = '<i class="fa fa-minus" aria-hidden="true"></i>'
 
                             // What happens when the subtract button is clicked
@@ -807,7 +799,7 @@ function displayPlayGame(game) {
                                      // quick check to see if a team has had a history
                                      if (game.history[key]) {
                                          // add another score here
-                                         console.log("team has history")
+                                         
  
                                          let teamHistoryUpdate = createMap(game.history[key])
                                          teamHistoryUpdate.set(teamHistoryUpdate.size, "-" + input.value)
@@ -816,8 +808,6 @@ function displayPlayGame(game) {
                                      } else {
  
                                          // add a score for the first time
-                                         console.log("team doesn't have history")
- 
                                          historyUpdate = createMap(game.history)
                                          historyUpdate.set(key, {
                                              0: "-" + input.value
@@ -825,10 +815,8 @@ function displayPlayGame(game) {
                                      }
                                  }
  
-                                 /* End of History */
-
-                                console.log(Object.fromEntries(teamsUpdate))
-                                let updates = {
+                                    /* End of History */
+                                    let updates = {
                                     date: Date.now(),
                                     teams: Object.fromEntries(teamsUpdate),
                                     history: Object.fromEntries(historyUpdate)
@@ -838,8 +826,10 @@ function displayPlayGame(game) {
                             })
 
 
-                            teamScoreContainer.appendChild(subButton)
-                            teamScoreContainer.appendChild(addButton)
+                            
+                            input.insertAdjacentElement('afterend', addButton)
+                            input.insertAdjacentElement('afterend', subButton)
+                            
                         }
 
                     } else {
@@ -850,8 +840,8 @@ function displayPlayGame(game) {
                                 historyContainer.remove()
                             }
                             if (teamScoreContainer.children.length >= 6) {
-                                teamScoreContainer.lastChild.remove()
-                                teamScoreContainer.lastChild.remove()
+                                document.getElementById("addButton").remove()
+                                document.getElementById("subButton").remove()
                             }
 
                             input.setAttribute("data-showingButton", "false")
@@ -870,7 +860,7 @@ function displayPlayGame(game) {
                     let historyText = htmlBuilder.createTextElement("History", "", "historyLabel")
 
                     let historyContainer = document.createElement("div")
-                    historyContainer.id = "key" + "historyContainer"
+                    historyContainer.id = key + "historyContainer"
                     historyContainer.className = "historyContainer"
 
                     game.history[key].forEach((score, round) => {
@@ -1192,7 +1182,6 @@ function createThemeToggle() {
 
     checkBox.addEventListener("click", () => {
 
-        console.log("IN THEME TOGGLE")
         let currentTheme = toggle.dataset.theme
 
         let styles = new Map()
