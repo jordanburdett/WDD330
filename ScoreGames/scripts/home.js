@@ -650,9 +650,6 @@ function displayPlayGame(game) {
     teamContainer.className = "gridTeamsContainer"
 
     let teams = createMap(game.teams)
-    teams = new Map([...teams.entries()].sort((a, b) => {
-        return b[1] - a[1]
-    }))
    
     // Create the Teams in the container
     teams.forEach((value, key) => {
