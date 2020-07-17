@@ -1,11 +1,33 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
 header h1 {
     text-align: center;
+    font-size: 26px;
+    padding: 25px;
+    margin: 0px;
+    font-family: 'Lexend Tera', serif;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-main p {
+.description {
+    padding: 20px;
+    padding-top: 0px;
+    margin: 0px;
+    font-family: 'Open Sans', serif;
+}
+
+.subHeader {
+    font-size: 20px;
+    padding: 15px;
+    font-family: 'Lexend Tera', serif;
+}
+
+.label {
+    font-size: 9px;
     text-align: center;
-}
-
-main label {
-    font-size: 11px;
+    color: gray;
+    font-family: 'Lexend Tera', serif;
 }

@@ -6,22 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameScore</title>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Tera">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans">
     <link rel="stylesheet" href="styles.css">
 
 </head>
 
 <body>
     <header>
-        <h1>Welcome To Score Games</h1>
-        <p>This application is for tracking card games or other games using a realtime database to keep all users in sync</p>
+        <h1>Score Games</h1>
+        <div class="subHeader">About</div>
+        <p class="description">
+            Score Games is application designed for scoring card games with multiple people keeping the scores updated instantly across devices.
+        </p>
         <br><br>
         
     </header>
     <main>
-        <p>To get started sign in with one of the options below</p>
+        <p class="subHeader">Sign in</p>
         
-        <br><br><br><br>
-        <label>psssst... If you don't have an account you can still use these buttons!</label>
+        
+        <div class="label">psssst... If you don't have an account you can still use these buttons!</div>
         <h2 id='loader'>Loading....</h2>
         <div id="auth"></div>
     </main>

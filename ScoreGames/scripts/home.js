@@ -153,7 +153,7 @@ function displayGames(games) {
         skewX: 15,
         y: 550,
         x: 200,
-        ease: "expo"
+        ease: "power4"
     })
 }
 
@@ -977,7 +977,8 @@ function displayPlayGame(game) {
                     settingsContainer.innerHTML = ""
                     settingsContainer.style = ""
 
-                }
+                },
+                ease: "power4"
             })
 
             return
@@ -988,9 +989,11 @@ function displayPlayGame(game) {
         // animate the settings in
         gsap.fromTo('#settingsContainer', {
             duration: 0.5,
-            x: "150%"
+            x: "150%",
+                ease: "power4"
         }, {
-            x: "0%"
+            x: "0%",
+            ease: "power4"
         })
     })
 
